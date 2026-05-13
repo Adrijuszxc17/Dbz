@@ -4,8 +4,7 @@ const TOTAL_POINTS = 100;
 
 const registerNameInput = document.querySelector("#register-name");
 const fighterNameInput = document.querySelector("#fighter-name");
-const fighterNameDisplay = document.querySelector("#fighter-name-display");
-const gameNameTargets = document.querySelectorAll("#game-player-name, #game-chat-name");
+const nameTargets = document.querySelectorAll("#fighter-name-display, #character-preview-name, #game-player-name, #game-chat-name");
 const genderInputs = document.querySelectorAll("input[name='gender-preview']");
 const gameSilhouettes = document.querySelectorAll(".game-silhouette");
 const statInputs = Array.from(document.querySelectorAll(".stat-range"));
@@ -24,7 +23,7 @@ if (registerNameInput) {
   registerNameInput.form?.addEventListener("submit", saveRegisterName);
 }
 
-if (fighterNameInput || fighterNameDisplay) {
+if (fighterNameInput || nameTargets.length) {
   const savedName = localStorage.getItem(STORAGE_KEY);
 
   if (savedName) {
@@ -32,20 +31,12 @@ if (fighterNameInput || fighterNameDisplay) {
       fighterNameInput.value = savedName;
     }
 
-    if (fighterNameDisplay) {
-      fighterNameDisplay.textContent = savedName;
-    }
-  } else if (fighterNameDisplay) {
-    fighterNameDisplay.textContent = "Pirma užsiregistruok pagrindiniame puslapyje";
-  }
-}
-
-if (gameNameTargets.length) {
-  const savedName = localStorage.getItem(STORAGE_KEY);
-
-  if (savedName) {
-    gameNameTargets.forEach((target) => {
+    nameTargets.forEach((target) => {
       target.textContent = savedName;
+    });
+  } else {
+    nameTargets.forEach((target) => {
+      target.textContent = "Pirma užsiregistruok pagrindiniame puslapyje";
     });
   }
 }
