@@ -1,8 +1,8 @@
-# DBZ Nexus statistikos centras
+# Z-Fusion
 
-Statinis Dragon Ball įkvėptas HTML prototipas su rimtesniu dashboard dizainu: KPI statistika, kovotojų kortelės, galios grafikai, grėsmių žemėlapis, reitingo lentelė ir būsimos MySQL struktūros blokas.
+Z-Fusion — veiksmo kupinas drakonų kovų pasaulis, kuriame legendiniai kovotojai atrakina galingas transformacijas, valdo energijos galias ir kovoja epinėse arenose dėl stipriausiojo titulo. Prisijunk prie turnyrų, tobulink savo kovotoją ir tapk tikra fusion legenda.
 
-Kol kas viskas yra tik HTML/CSS. Vėliau statinius skaičius galima pakeisti duomenimis iš MySQL lentelių, pvz. `fighters`, `matches`, `techniques` ir `power_logs`.
+Statinis HTML/CSS puslapis su futuristiniu drakonų kovų dizainu, statistikos blokais, arenos analitika ir turnyro reitingu.
 
 ## Paleidimas
 

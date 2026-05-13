@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>DBZ Nexus statistikos centras</title>
+  <title>Z-Fusion</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
@@ -15,38 +15,37 @@
   <div class="energy-cloud energy-cloud-two" aria-hidden="true"></div>
 
   <header class="topbar">
-    <a class="brand" href="#top" aria-label="DBZ Nexus pradžia">
+    <a class="brand" href="#top" aria-label="Z-Fusion pradžia">
       <span class="brand-mark">Z</span>
       <span>
-        <strong>DBZ Nexus</strong>
-        <small>Battle Intelligence</small>
+        <strong>Z-Fusion</strong>
+        <small>Fusion legenda</small>
       </span>
     </a>
 
     <nav class="nav" aria-label="Pagrindinė navigacija">
       <a href="#stats">Statistika</a>
-      <a href="#fighters">Kovotojai</a>
-      <a href="#database">MySQL planas</a>
+      <a href="#arena">Arenos</a>
       <a href="#ranking">Reitingas</a>
     </nav>
 
-    <a class="topbar-action" href="#database">Data ready</a>
+    <a class="topbar-action" href="#ranking">Į turnyrą</a>
   </header>
 
   <main id="top">
     <section class="hero-shell">
       <div class="hero-copy">
-        <p class="label">Nematytas DBZ dashboard prototipas</p>
-        <h1>Kovų statistika, galia ir analizė viename centre</h1>
+        <h1>Z-Fusion</h1>
         <p class="hero-text">
-          Rimtesnis HTML dizainas ateities projektui: dabar viskas statika,
-          o vėliau šiuos blokus galima jungti prie MySQL, rodyti realius
-          kovotojus, pergales, pralaimėjimus, technikas ir turnyrų istoriją.
+          Z-Fusion — veiksmo kupinas drakonų kovų pasaulis, kuriame legendiniai
+          kovotojai atrakina galingas transformacijas, valdo energijos galias ir
+          kovoja epinėse arenose dėl stipriausiojo titulo. Prisijunk prie
+          turnyrų, tobulink savo kovotoją ir tapk tikra fusion legenda.
         </p>
 
         <div class="hero-actions">
           <a class="button button-primary" href="#stats">Žiūrėti statistiką</a>
-          <a class="button button-ghost" href="#database">Duomenų struktūra</a>
+          <a class="button button-ghost" href="#ranking">Turnyro reitingas</a>
         </div>
       </div>
 
@@ -79,10 +78,10 @@
     <section id="stats" class="panel-section">
       <div class="section-title">
         <p class="label">Pagrindiniai skaičiai</p>
-        <h2>Turnyro valdymo statistika</h2>
+        <h2>Z-Fusion turnyro statistika</h2>
         <p>
-          Šie KPI dabar įrašyti HTML faile, bet vėliau gali būti pildomi iš
-          MySQL lentelių: `fighters`, `matches`, `techniques`, `power_logs`.
+          Stebėk aktyvius turnyrus, kovų intensyvumą, transformacijų progresą
+          ir grėsmių lygį viename futuristiniame valdymo centre.
         </p>
       </div>
 
@@ -117,14 +116,14 @@
       </div>
     </section>
 
-    <section class="analytics-layout">
+    <section id="arena" class="analytics-layout">
       <article class="analytics-card power-chart">
         <div class="card-heading">
           <div>
             <p class="label">Galios kreivė</p>
             <h2>Formų progresas</h2>
           </div>
-          <span class="pill">Static preview</span>
+          <span class="pill">Arenos peržiūra</span>
         </div>
 
         <div class="chart-bars" aria-label="Kovotojų formų galios grafikas">
@@ -169,88 +168,6 @@
           <span class="zone-label label-three">Wasteland</span>
         </div>
       </article>
-    </section>
-
-    <section id="fighters" class="panel-section">
-      <div class="section-title compact">
-        <p class="label">Kovotojų moduliai</p>
-        <h2>Duomenims paruoštos kortelės</h2>
-      </div>
-
-      <div class="fighter-grid">
-        <article class="fighter-card">
-          <div class="fighter-topline">
-            <span class="avatar avatar-orange">G</span>
-            <span class="status online">Aktyvus</span>
-          </div>
-          <h3>Gokas</h3>
-          <p>Balansas tarp greičio, ištvermės ir nenuspėjamų transformacijų.</p>
-          <dl class="fighter-stats">
-            <div><dt>Pergalės</dt><dd>214</dd></div>
-            <div><dt>Pralaimėjimai</dt><dd>19</dd></div>
-            <div><dt>Forma</dt><dd>Ultra</dd></div>
-          </dl>
-        </article>
-
-        <article class="fighter-card">
-          <div class="fighter-topline">
-            <span class="avatar avatar-blue">V</span>
-            <span class="status online">Aktyvus</span>
-          </div>
-          <h3>Vedžitas</h3>
-          <p>Agresyvus puolimas, aukšta disciplina ir stabilus galios augimas.</p>
-          <dl class="fighter-stats">
-            <div><dt>Pergalės</dt><dd>196</dd></div>
-            <div><dt>Pralaimėjimai</dt><dd>24</dd></div>
-            <div><dt>Forma</dt><dd>Blue Evo</dd></div>
-          </dl>
-        </article>
-
-        <article class="fighter-card">
-          <div class="fighter-topline">
-            <span class="avatar avatar-pink">B</span>
-            <span class="status danger">Nestabilus</span>
-          </div>
-          <h3>Brolis</h3>
-          <p>Milžiniškas potencialas, bet kova greitai tampa sunkiai valdoma.</p>
-          <dl class="fighter-stats">
-            <div><dt>Pergalės</dt><dd>88</dd></div>
-            <div><dt>Pralaimėjimai</dt><dd>6</dd></div>
-            <div><dt>Forma</dt><dd>Legendary</dd></div>
-          </dl>
-        </article>
-      </div>
-    </section>
-
-    <section id="database" class="database-section">
-      <div class="database-copy">
-        <p class="label">Vėliau MySQL</p>
-        <h2>HTML jau sudėliotas taip, kad būtų patogu jungti duomenis</h2>
-        <p>
-          Kai ateis laikas backendui, šitas dizainas gali tapti PHP, Node.js ar
-          kito serverio šablonu. Statinės reikšmės bus pakeistos užklausomis į
-          MySQL, o lentelės rodys realius įrašus.
-        </p>
-      </div>
-
-      <div class="schema-grid">
-        <article>
-          <span>fighters</span>
-          <p>id, name, race, form, status, power_level</p>
-        </article>
-        <article>
-          <span>matches</span>
-          <p>id, fighter_a, fighter_b, winner_id, arena, finished_at</p>
-        </article>
-        <article>
-          <span>techniques</span>
-          <p>id, fighter_id, name, damage_score, energy_cost</p>
-        </article>
-        <article>
-          <span>power_logs</span>
-          <p>id, fighter_id, form, power_value, recorded_at</p>
-        </article>
-      </div>
     </section>
 
     <section id="ranking" class="panel-section">
