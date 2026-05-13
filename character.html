@@ -8,6 +8,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
 </head>
 <body>
   <div class="background-grid" aria-hidden="true"></div>
@@ -62,9 +63,8 @@
       <form class="builder-form" action="#" method="post">
         <div class="creation-steps" aria-label="Veikėjo kūrimo žingsniai">
           <span class="active">01 Tapatybė</span>
-          <span>02 Statistika</span>
-          <span>03 Išvaizda</span>
-          <span>04 Peržiūra</span>
+          <span>02 Taškai</span>
+          <span>03 Peržiūra</span>
         </div>
 
         <section id="identity" class="builder-panel">
@@ -78,26 +78,18 @@
 
           <div class="form-grid">
             <div>
-              <label for="fighter-name">Veikėjo vardas</label>
-              <input id="fighter-name" name="fighter-name" type="text" placeholder="pvz. Kairas" autocomplete="off">
-            </div>
-            <div>
-              <label for="fighter-title">Titulas</label>
-              <input id="fighter-title" name="fighter-title" type="text" placeholder="pvz. Kibirkšties mokinys" autocomplete="off">
+              <label for="fighter-name">Vardas iš registracijos</label>
+              <input id="fighter-name" name="fighter-name" type="text" placeholder="Tas pats vardas kaip registracijoje" autocomplete="off">
             </div>
           </div>
 
           <div class="gender-grid" aria-label="Lyties pasirinkimas">
             <label class="gender-card male-card" for="gender-male">
-              <span>Vyro siluetas</span>
-              <strong>Male</strong>
-              <small>Naudoja `photo/character/male.png`.</small>
+              <strong>Vyras</strong>
             </label>
 
             <label class="gender-card female-card" for="gender-female">
-              <span>Merginos siluetas</span>
-              <strong>Female</strong>
-              <small>Naudoja `photo/character/female.png`.</small>
+              <strong>Moteris</strong>
             </label>
           </div>
         </section>
@@ -108,60 +100,32 @@
               <p class="label">2 žingsnis</p>
               <h2>Pradiniai taškai</h2>
             </div>
-            <span class="pill">100 taškų</span>
+            <span class="pill">Liko <strong id="remaining-points">84</strong>/100</span>
           </div>
 
           <div class="points-grid">
             <label class="point-control">
               <span>Jėga</span>
-              <input type="range" name="strength" min="0" max="100" value="72">
-              <strong>72</strong>
+              <input class="stat-range" type="range" name="strength" min="0" max="100" value="5" data-output="strength-value">
+              <strong id="strength-value">5</strong>
             </label>
 
             <label class="point-control">
               <span>Greitis</span>
-              <input type="range" name="speed" min="0" max="100" value="64">
-              <strong>64</strong>
+              <input class="stat-range" type="range" name="speed" min="0" max="100" value="1" data-output="speed-value">
+              <strong id="speed-value">1</strong>
             </label>
 
             <label class="point-control">
               <span>Ki energija</span>
-              <input type="range" name="ki" min="0" max="100" value="81">
-              <strong>81</strong>
+              <input class="stat-range" type="range" name="ki" min="0" max="100" value="6" data-output="ki-value">
+              <strong id="ki-value">6</strong>
             </label>
 
             <label class="point-control">
               <span>Gynyba</span>
-              <input type="range" name="defense" min="0" max="100" value="58">
-              <strong>58</strong>
-            </label>
-          </div>
-        </section>
-
-        <section class="builder-panel">
-          <div class="card-heading">
-            <div>
-              <p class="label">3 žingsnis</p>
-              <h2>Auros stilius</h2>
-            </div>
-            <span class="pill">Vizualas</span>
-          </div>
-
-          <div class="aura-grid">
-            <label class="aura-card aura-gold">
-              <input type="radio" name="aura" value="gold" checked>
-              <span></span>
-              <strong>Auksinė aura</strong>
-            </label>
-            <label class="aura-card aura-blue">
-              <input type="radio" name="aura" value="blue">
-              <span></span>
-              <strong>Mėlyna aura</strong>
-            </label>
-            <label class="aura-card aura-red">
-              <input type="radio" name="aura" value="red">
-              <span></span>
-              <strong>Raudona aura</strong>
+              <input class="stat-range" type="range" name="defense" min="0" max="100" value="4" data-output="defense-value">
+              <strong id="defense-value">4</strong>
             </label>
           </div>
         </section>
@@ -170,7 +134,7 @@
       <aside id="preview" class="live-preview">
         <p class="label">Gyva peržiūra</p>
         <div class="silhouette-frame">
-          <div class="aura-ring"></div>
+          <div class="energy-halo"></div>
           <img class="silhouette silhouette-male" src="photo/character/male.png" alt="Vyro veikėjo siluetas">
           <img class="silhouette silhouette-female" src="photo/character/female.png" alt="Merginos veikėjo siluetas">
         </div>
@@ -196,14 +160,6 @@
           </div>
         </dl>
 
-        <div class="locked-list">
-          <span>Užrakinta iki žaidimo eigos</span>
-          <ul>
-            <li>Transformacijos</li>
-            <li>Specialios technikos</li>
-            <li>Goko ir kitų meistrų treniruotės</li>
-          </ul>
-        </div>
       </aside>
     </section>
   </main>
