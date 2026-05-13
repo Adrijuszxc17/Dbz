@@ -3,147 +3,309 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dragon Ball kovų arena</title>
+  <title>DBZ Nexus statistikos centras</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bangers&family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <header class="site-header">
-    <a class="logo" href="#top" aria-label="Dragon Ball arena pradžia">
-      <span class="logo-ball">4</span>
-      <span>DBZ Arena</span>
+  <div class="background-grid" aria-hidden="true"></div>
+  <div class="energy-cloud energy-cloud-one" aria-hidden="true"></div>
+  <div class="energy-cloud energy-cloud-two" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="DBZ Nexus pradžia">
+      <span class="brand-mark">Z</span>
+      <span>
+        <strong>DBZ Nexus</strong>
+        <small>Battle Intelligence</small>
+      </span>
     </a>
 
-    <nav class="main-nav" aria-label="Pagrindinė navigacija">
+    <nav class="nav" aria-label="Pagrindinė navigacija">
+      <a href="#stats">Statistika</a>
       <a href="#fighters">Kovotojai</a>
-      <a href="#arena">Arena</a>
-      <a href="#episodes">Misijos</a>
+      <a href="#database">MySQL planas</a>
+      <a href="#ranking">Reitingas</a>
     </nav>
+
+    <a class="topbar-action" href="#database">Data ready</a>
   </header>
 
   <main id="top">
-    <section class="hero">
-      <div class="energy-orb orb-one"></div>
-      <div class="energy-orb orb-two"></div>
-
-      <div class="hero-content">
-        <p class="eyebrow">Drakonų kovos • Saiyan galia • Ki energija</p>
-        <h1>Gokas ir Vedžitas stoja į epinę kovą</h1>
+    <section class="hero-shell">
+      <div class="hero-copy">
+        <p class="label">Nematytas DBZ dashboard prototipas</p>
+        <h1>Kovų statistika, galia ir analizė viename centre</h1>
         <p class="hero-text">
-          Ryškus Dragon Ball įkvėptas HTML dizainas su oranžine energija,
-          mėlynais žaibais, kovotojų kortelėmis ir arenos nuotaika.
+          Rimtesnis HTML dizainas ateities projektui: dabar viskas statika,
+          o vėliau šiuos blokus galima jungti prie MySQL, rodyti realius
+          kovotojus, pergales, pralaimėjimus, technikas ir turnyrų istoriją.
         </p>
+
         <div class="hero-actions">
-          <a class="button button-primary" href="#fighters">Rinktis kovotoją</a>
-          <a class="button button-secondary" href="#arena">Į areną</a>
+          <a class="button button-primary" href="#stats">Žiūrėti statistiką</a>
+          <a class="button button-ghost" href="#database">Duomenų struktūra</a>
         </div>
       </div>
 
-      <aside class="power-card" aria-label="Kovos galios rodikliai">
-        <div class="power-ring">
-          <span>9000+</span>
+      <aside class="scanner-card" aria-label="Aktyvios kovos skeneris">
+        <div class="scanner-header">
+          <span>Live scan</span>
+          <strong>Sector 07</strong>
         </div>
-        <h2>Galios lygis</h2>
-        <p>Kai ki energija kyla, žemė dreba, o dangus užsidega mėlyna aura.</p>
+
+        <div class="scanner-core">
+          <div class="radar-ring ring-one"></div>
+          <div class="radar-ring ring-two"></div>
+          <div class="radar-ring ring-three"></div>
+          <span class="scanner-value">91%</span>
+        </div>
+
+        <div class="scanner-meta">
+          <div>
+            <span>Ki aktyvumas</span>
+            <strong>Aukštas</strong>
+          </div>
+          <div>
+            <span>Grėsmė</span>
+            <strong>S klasė</strong>
+          </div>
+        </div>
       </aside>
     </section>
 
-    <section id="fighters" class="section">
-      <div class="section-heading">
-        <p class="eyebrow">Legendiniai kovotojai</p>
-        <h2>Pasirink savo pusę</h2>
-      </div>
-
-      <div class="fighter-grid">
-        <article class="fighter-card goku-card">
-          <div class="fighter-aura"></div>
-          <p class="fighter-tag">Herojus</p>
-          <h3>Gokas</h3>
-          <p>
-            Ramus, atkaklus ir visada pasiruošęs peržengti savo ribas.
-            Jo energijos banga nušviečia visą areną.
-          </p>
-          <ul>
-            <li>Kamehameha</li>
-            <li>Ultra instinkto greitis</li>
-            <li>Nenugalimas užsispyrimas</li>
-          </ul>
-        </article>
-
-        <article class="fighter-card vegeta-card">
-          <div class="fighter-aura"></div>
-          <p class="fighter-tag">Princas</p>
-          <h3>Vedžitas</h3>
-          <p>
-            Išdidus Saiyan princas, kuris nekenčia pralaimėjimų ir kiekvieną
-            kovą paverčia asmeniniu iššūkiu.
-          </p>
-          <ul>
-            <li>Final Flash</li>
-            <li>Mėlyna karališka aura</li>
-            <li>Kovotojo disciplina</li>
-          </ul>
-        </article>
-
-        <article class="fighter-card fusion-card">
-          <div class="fighter-aura"></div>
-          <p class="fighter-tag">Susiliejimas</p>
-          <h3>Gogeta</h3>
-          <p>
-            Kai Goko širdis ir Vedžito ryžtas susijungia, gimsta greitis,
-            jėga ir stilius, kurio negali sustabdyti joks priešas.
-          </p>
-          <ul>
-            <li>Soul Punisher</li>
-            <li>Žaibiškas puolimas</li>
-            <li>Tobula sinergija</li>
-          </ul>
-        </article>
-      </div>
-    </section>
-
-    <section id="arena" class="arena-section">
-      <div class="arena-copy">
-        <p class="eyebrow">Kovos scena</p>
-        <h2>Kalnų arena po sprogstančiu dangumi</h2>
+    <section id="stats" class="panel-section">
+      <div class="section-title">
+        <p class="label">Pagrindiniai skaičiai</p>
+        <h2>Turnyro valdymo statistika</h2>
         <p>
-          Dizainas naudoja CSS gradientus, energijos apskritimus ir šviesos
-          efektus, kad puslapis atrodytų kaip įtempta anime kovos akimirka.
+          Šie KPI dabar įrašyti HTML faile, bet vėliau gali būti pildomi iš
+          MySQL lentelių: `fighters`, `matches`, `techniques`, `power_logs`.
         </p>
       </div>
 
-      <div class="arena-visual" aria-hidden="true">
-        <div class="beam beam-left"></div>
-        <div class="beam beam-right"></div>
-        <div class="clash">VS</div>
-        <div class="ground"></div>
+      <div class="stats-grid">
+        <article class="stat-card highlight">
+          <span class="stat-icon">01</span>
+          <p>Aktyvūs kovotojai</p>
+          <strong>128</strong>
+          <small>+18 naujų šį sezoną</small>
+        </article>
+
+        <article class="stat-card">
+          <span class="stat-icon">02</span>
+          <p>Užfiksuotos kovos</p>
+          <strong>742</strong>
+          <small>83% baigtos nokautu</small>
+        </article>
+
+        <article class="stat-card">
+          <span class="stat-icon">03</span>
+          <p>Vidutinis galios lygis</p>
+          <strong>9.8M</strong>
+          <small>Skaičiuojama pagal formas</small>
+        </article>
+
+        <article class="stat-card danger">
+          <span class="stat-icon">04</span>
+          <p>Kritinės grėsmės</p>
+          <strong>7</strong>
+          <small>Reikia stebėti realiu laiku</small>
+        </article>
       </div>
     </section>
 
-    <section id="episodes" class="section missions">
-      <div class="section-heading">
-        <p class="eyebrow">Mini misijos</p>
-        <h2>Ką gali pridėti toliau?</h2>
+    <section class="analytics-layout">
+      <article class="analytics-card power-chart">
+        <div class="card-heading">
+          <div>
+            <p class="label">Galios kreivė</p>
+            <h2>Formų progresas</h2>
+          </div>
+          <span class="pill">Static preview</span>
+        </div>
+
+        <div class="chart-bars" aria-label="Kovotojų formų galios grafikas">
+          <div class="bar-row">
+            <span>Base</span>
+            <div class="bar-track"><span style="--value: 35%"></span></div>
+            <strong>35%</strong>
+          </div>
+          <div class="bar-row">
+            <span>Super Saiyan</span>
+            <div class="bar-track"><span style="--value: 62%"></span></div>
+            <strong>62%</strong>
+          </div>
+          <div class="bar-row">
+            <span>Blue</span>
+            <div class="bar-track"><span style="--value: 81%"></span></div>
+            <strong>81%</strong>
+          </div>
+          <div class="bar-row">
+            <span>Ultra</span>
+            <div class="bar-track"><span style="--value: 94%"></span></div>
+            <strong>94%</strong>
+          </div>
+        </div>
+      </article>
+
+      <article class="analytics-card threat-map">
+        <div class="card-heading">
+          <div>
+            <p class="label">Žemėlapis</p>
+            <h2>Grėsmių zona</h2>
+          </div>
+          <span class="pill pill-red">S class</span>
+        </div>
+
+        <div class="map-shell" aria-label="Statinis grėsmių zonų vaizdas">
+          <span class="zone zone-one"></span>
+          <span class="zone zone-two"></span>
+          <span class="zone zone-three"></span>
+          <span class="zone-label label-one">West City</span>
+          <span class="zone-label label-two">Namek orbit</span>
+          <span class="zone-label label-three">Wasteland</span>
+        </div>
+      </article>
+    </section>
+
+    <section id="fighters" class="panel-section">
+      <div class="section-title compact">
+        <p class="label">Kovotojų moduliai</p>
+        <h2>Duomenims paruoštos kortelės</h2>
       </div>
 
-      <div class="mission-list">
+      <div class="fighter-grid">
+        <article class="fighter-card">
+          <div class="fighter-topline">
+            <span class="avatar avatar-orange">G</span>
+            <span class="status online">Aktyvus</span>
+          </div>
+          <h3>Gokas</h3>
+          <p>Balansas tarp greičio, ištvermės ir nenuspėjamų transformacijų.</p>
+          <dl class="fighter-stats">
+            <div><dt>Pergalės</dt><dd>214</dd></div>
+            <div><dt>Pralaimėjimai</dt><dd>19</dd></div>
+            <div><dt>Forma</dt><dd>Ultra</dd></div>
+          </dl>
+        </article>
+
+        <article class="fighter-card">
+          <div class="fighter-topline">
+            <span class="avatar avatar-blue">V</span>
+            <span class="status online">Aktyvus</span>
+          </div>
+          <h3>Vedžitas</h3>
+          <p>Agresyvus puolimas, aukšta disciplina ir stabilus galios augimas.</p>
+          <dl class="fighter-stats">
+            <div><dt>Pergalės</dt><dd>196</dd></div>
+            <div><dt>Pralaimėjimai</dt><dd>24</dd></div>
+            <div><dt>Forma</dt><dd>Blue Evo</dd></div>
+          </dl>
+        </article>
+
+        <article class="fighter-card">
+          <div class="fighter-topline">
+            <span class="avatar avatar-pink">B</span>
+            <span class="status danger">Nestabilus</span>
+          </div>
+          <h3>Brolis</h3>
+          <p>Milžiniškas potencialas, bet kova greitai tampa sunkiai valdoma.</p>
+          <dl class="fighter-stats">
+            <div><dt>Pergalės</dt><dd>88</dd></div>
+            <div><dt>Pralaimėjimai</dt><dd>6</dd></div>
+            <div><dt>Forma</dt><dd>Legendary</dd></div>
+          </dl>
+        </article>
+      </div>
+    </section>
+
+    <section id="database" class="database-section">
+      <div class="database-copy">
+        <p class="label">Vėliau MySQL</p>
+        <h2>HTML jau sudėliotas taip, kad būtų patogu jungti duomenis</h2>
+        <p>
+          Kai ateis laikas backendui, šitas dizainas gali tapti PHP, Node.js ar
+          kito serverio šablonu. Statinės reikšmės bus pakeistos užklausomis į
+          MySQL, o lentelės rodys realius įrašus.
+        </p>
+      </div>
+
+      <div class="schema-grid">
         <article>
-          <span>01</span>
-          <h3>Transformacijos</h3>
-          <p>Pridėk Super Saiyan, Blue ar Ultra Instinct būsenas.</p>
+          <span>fighters</span>
+          <p>id, name, race, form, status, power_level</p>
         </article>
         <article>
-          <span>02</span>
-          <h3>Turnyras</h3>
-          <p>Sukurk kovotojų lentelę su pergalėmis ir pralaimėjimais.</p>
+          <span>matches</span>
+          <p>id, fighter_a, fighter_b, winner_id, arena, finished_at</p>
         </article>
         <article>
-          <span>03</span>
-          <h3>Animacijos</h3>
-          <p>Įjunk ki bangų judėjimą, kortelių švytėjimą ir arenos drebėjimą.</p>
+          <span>techniques</span>
+          <p>id, fighter_id, name, damage_score, energy_cost</p>
         </article>
+        <article>
+          <span>power_logs</span>
+          <p>id, fighter_id, form, power_value, recorded_at</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="ranking" class="panel-section">
+      <div class="section-title compact">
+        <p class="label">Reitingo lentelė</p>
+        <h2>Top kovotojai</h2>
+      </div>
+
+      <div class="table-card">
+        <table>
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Kovotojas</th>
+              <th>Rasė</th>
+              <th>Galios lygis</th>
+              <th>Win rate</th>
+              <th>Būsena</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>01</td>
+              <td>Gokas</td>
+              <td>Saiyan</td>
+              <td>94 800 000</td>
+              <td>91%</td>
+              <td><span class="status online">Ready</span></td>
+            </tr>
+            <tr>
+              <td>02</td>
+              <td>Vedžitas</td>
+              <td>Saiyan</td>
+              <td>91 200 000</td>
+              <td>89%</td>
+              <td><span class="status online">Ready</span></td>
+            </tr>
+            <tr>
+              <td>03</td>
+              <td>Brolis</td>
+              <td>Saiyan</td>
+              <td>99 400 000</td>
+              <td>94%</td>
+              <td><span class="status danger">Warning</span></td>
+            </tr>
+            <tr>
+              <td>04</td>
+              <td>Pikolas</td>
+              <td>Namek</td>
+              <td>38 600 000</td>
+              <td>76%</td>
+              <td><span class="status idle">Training</span></td>
+            </tr>
+          </tbody>
+        </table>
       </div>
     </section>
   </main>
