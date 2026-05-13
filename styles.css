@@ -1364,6 +1364,7 @@ h3 {
 }
 
 .bag-item {
+  position: relative;
   display: grid;
   gap: 0.45rem;
   min-height: 9.5rem;
@@ -1392,6 +1393,24 @@ h3 {
 
 .bag-item small {
   color: var(--muted);
+}
+
+.item-quantity {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  z-index: 2;
+  display: inline-flex;
+  min-width: 2.2rem;
+  min-height: 2.2rem;
+  align-items: center;
+  justify-content: center;
+  color: #07111f;
+  font-size: 0.82rem;
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--gold), var(--orange));
+  border-radius: 999px;
+  box-shadow: 0 0 22px rgba(255, 159, 28, 0.28);
 }
 
 .item-photo {
