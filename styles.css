@@ -698,6 +698,35 @@ h3 {
   grid-template-columns: 1fr;
 }
 
+.registered-name-card {
+  padding: 1rem;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+}
+
+.registered-name-card span,
+.registered-name-card small {
+  display: block;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.registered-name-card span {
+  margin-bottom: 0.25rem;
+  font-size: 0.78rem;
+  font-weight: 900;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.registered-name-card strong {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: var(--text);
+  font-size: 1.35rem;
+}
+
 .builder-form label {
   color: #dbeafe;
   font-size: 0.88rem;

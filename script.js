@@ -3,6 +3,7 @@ const TOTAL_POINTS = 100;
 
 const registerNameInput = document.querySelector("#register-name");
 const fighterNameInput = document.querySelector("#fighter-name");
+const fighterNameDisplay = document.querySelector("#fighter-name-display");
 const statInputs = Array.from(document.querySelectorAll(".stat-range"));
 const remainingPoints = document.querySelector("#remaining-points");
 
@@ -19,11 +20,19 @@ if (registerNameInput) {
   registerNameInput.form?.addEventListener("submit", saveRegisterName);
 }
 
-if (fighterNameInput) {
+if (fighterNameInput || fighterNameDisplay) {
   const savedName = localStorage.getItem(STORAGE_KEY);
 
   if (savedName) {
-    fighterNameInput.value = savedName;
+    if (fighterNameInput) {
+      fighterNameInput.value = savedName;
+    }
+
+    if (fighterNameDisplay) {
+      fighterNameDisplay.textContent = savedName;
+    }
+  } else if (fighterNameDisplay) {
+    fighterNameDisplay.textContent = "Pirma užsiregistruok pagrindiniame puslapyje";
   }
 }
 
