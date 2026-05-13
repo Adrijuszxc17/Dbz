@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Z-Fusion | Game</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <div class="background-grid" aria-hidden="true"></div>
+  <div class="energy-cloud energy-cloud-one" aria-hidden="true"></div>
+  <div class="energy-cloud energy-cloud-two" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Grįžti į Z-Fusion pradžią">
+      <span class="brand-mark">Z</span>
+      <span>
+        <strong>Z-Fusion</strong>
+        <small>Game hub</small>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Žaidimo navigacija">
+      <a href="index.html">Pradžia</a>
+      <a href="character.html">Veikėjas</a>
+      <a href="#quests">Užduotys</a>
+      <a href="#map">Žemėlapis</a>
+      <a href="#chat">Chat</a>
+    </nav>
+
+    <a class="topbar-action" href="#training">Treniruotis</a>
+  </header>
+
+  <main class="game-shell">
+    <section class="game-hero">
+      <article class="player-status-panel">
+        <div class="player-summary">
+          <div class="mini-silhouette">
+            <img class="game-silhouette game-silhouette-male" src="photo/character/male.png" alt="Vyro veikėjo siluetas">
+            <img class="game-silhouette game-silhouette-female" src="photo/character/female.png" alt="Merginos veikėjo siluetas">
+          </div>
+          <div>
+            <p class="label">Žaidėjo statusas</p>
+            <h1 id="game-player-name">Naujas kovotojas</h1>
+            <span class="rank-badge">Rookie • Level 1</span>
+          </div>
+        </div>
+
+        <div class="status-bars" aria-label="Žaidėjo resursai">
+          <div class="resource-row hp-row">
+            <span>HP</span>
+            <div><i style="--value: 92%"></i></div>
+            <strong>92/100</strong>
+          </div>
+          <div class="resource-row ki-row">
+            <span>Ki</span>
+            <div><i style="--value: 64%"></i></div>
+            <strong>64/100</strong>
+          </div>
+          <div class="resource-row stamina-row">
+            <span>Stamina</span>
+            <div><i style="--value: 78%"></i></div>
+            <strong>78/100</strong>
+          </div>
+          <div class="resource-row xp-row">
+            <span>XP</span>
+            <div><i style="--value: 22%"></i></div>
+            <strong>220/1000</strong>
+          </div>
+        </div>
+      </article>
+
+      <article id="training" class="next-action-card">
+        <p class="label">Rekomenduojama</p>
+        <h2>Pradėti pirmą treniruotę</h2>
+        <p>
+          Pirmas tikslas: sustiprinti kūną, pajusti Ki energiją ir pasiruošti
+          pirmai meistro užduočiai.
+        </p>
+        <a class="button button-primary" href="#events">Pradėti treniruotę</a>
+      </article>
+    </section>
+
+    <section class="game-grid">
+      <article id="quests" class="game-card daily-card">
+        <div class="card-heading">
+          <div>
+            <p class="label">Dienos progresas</p>
+            <h2>Užduotys</h2>
+          </div>
+          <span class="pill">0/3</span>
+        </div>
+
+        <div class="quest-list">
+          <div>
+            <span>Treniruotės atliktos</span>
+            <strong>0/3</strong>
+          </div>
+          <div>
+            <span>Kovos laimėtos</span>
+            <strong>0/1</strong>
+          </div>
+          <div>
+            <span>XP surinkta</span>
+            <strong>220/1000</strong>
+          </div>
+        </div>
+      </article>
+
+      <article id="events" class="game-card event-card">
+        <div class="card-heading">
+          <div>
+            <p class="label">Įvykių logas</p>
+            <h2>Kas vyksta?</h2>
+          </div>
+          <span class="pill">Live</span>
+        </div>
+
+        <ol class="event-log">
+          <li>Veikėjas užregistruotas Z-Fusion sistemoje.</li>
+          <li>Treniruočių zona paruošta pirmajam bandymui.</li>
+          <li>Gokas pastebėjo naują kovotoją, bet dar laukia tavo progreso.</li>
+        </ol>
+      </article>
+
+      <article class="game-card locked-card">
+        <div class="card-heading">
+          <div>
+            <p class="label">Užrakintos sistemos</p>
+            <h2>Atrakinsi vėliau</h2>
+          </div>
+          <span class="pill pill-red">Locked</span>
+        </div>
+
+        <div class="locked-grid">
+          <span>Technikos</span>
+          <span>Transformacijos</span>
+          <span>Fusion režimas</span>
+          <span>Bosų kovos</span>
+        </div>
+      </article>
+
+      <article class="game-card mentor-status">
+        <p class="label">Pirmas mokytojas</p>
+        <h2>Dar nežinomas</h2>
+        <p>
+          Kai atliksi pirmą treniruotę, sistema parinks pirmą meistrą. Gokas,
+          Vedžitas arba Pikolas gali tapti tavo pirmu mentoriumi.
+        </p>
+      </article>
+    </section>
+
+    <section id="map" class="game-grid lower-grid">
+      <article class="game-card map-card">
+        <div class="card-heading">
+          <div>
+            <p class="label">Mini žemėlapis</p>
+            <h2>Lokacijos</h2>
+          </div>
+          <span class="pill">Hub</span>
+        </div>
+
+        <div class="game-map" aria-label="Mini žemėlapis">
+          <span class="map-node home-node">Namai</span>
+          <span class="map-node training-node">Treniruotės</span>
+          <span class="map-node arena-node locked">Arena</span>
+          <span class="map-node masters-node locked">Meistrai</span>
+        </div>
+      </article>
+
+      <article class="game-card inventory-card">
+        <div class="card-heading">
+          <div>
+            <p class="label">Inventorius</p>
+            <h2>Pradžios daiktai</h2>
+          </div>
+          <span class="pill">4 slotai</span>
+        </div>
+
+        <div class="inventory-grid">
+          <div><span>🥤</span><strong>Ki kapsulė</strong><small>x1</small></div>
+          <div><span>🏋</span><strong>Svoriai</strong><small>x1</small></div>
+          <div><span>🎟</span><strong>Turnyro bilietas</strong><small>locked</small></div>
+          <div><span>🌱</span><strong>Energijos pupelė</strong><small>locked</small></div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <section id="chat" class="bottom-chat" aria-label="Veikėjo chat ir informacija">
+    <div class="chat-character">
+      <img class="game-silhouette game-silhouette-male" src="photo/character/male.png" alt="Vyro veikėjo siluetas chat lange">
+      <img class="game-silhouette game-silhouette-female" src="photo/character/female.png" alt="Merginos veikėjo siluetas chat lange">
+    </div>
+    <div class="chat-copy">
+      <span>Veikėjo info</span>
+      <strong id="game-chat-name">Naujas kovotojas</strong>
+      <p>HP 92 • Ki 64 • Stamina 78 • Lygis 1</p>
+    </div>
+    <form class="chat-form" action="#" method="post">
+      <label for="chat-message">Žinutė</label>
+      <input id="chat-message" name="chat-message" type="text" placeholder="Parašyk komandą arba pastabą...">
+      <button class="button button-primary" type="submit">Siųsti</button>
+    </form>
+  </section>
+</body>
+</html>

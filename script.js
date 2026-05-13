@@ -1,9 +1,13 @@
 const STORAGE_KEY = "zFusionRegisterName";
+const GENDER_KEY = "zFusionGender";
 const TOTAL_POINTS = 100;
 
 const registerNameInput = document.querySelector("#register-name");
 const fighterNameInput = document.querySelector("#fighter-name");
 const fighterNameDisplay = document.querySelector("#fighter-name-display");
+const gameNameTargets = document.querySelectorAll("#game-player-name, #game-chat-name");
+const genderInputs = document.querySelectorAll("input[name='gender-preview']");
+const gameSilhouettes = document.querySelectorAll(".game-silhouette");
 const statInputs = Array.from(document.querySelectorAll(".stat-range"));
 const remainingPoints = document.querySelector("#remaining-points");
 
@@ -34,6 +38,44 @@ if (fighterNameInput || fighterNameDisplay) {
   } else if (fighterNameDisplay) {
     fighterNameDisplay.textContent = "Pirma užsiregistruok pagrindiniame puslapyje";
   }
+}
+
+if (gameNameTargets.length) {
+  const savedName = localStorage.getItem(STORAGE_KEY);
+
+  if (savedName) {
+    gameNameTargets.forEach((target) => {
+      target.textContent = savedName;
+    });
+  }
+}
+
+if (genderInputs.length) {
+  const savedGender = localStorage.getItem(GENDER_KEY);
+
+  genderInputs.forEach((input) => {
+    if (input.value === savedGender) {
+      input.checked = true;
+    }
+
+    input.addEventListener("change", () => {
+      if (input.checked) {
+        localStorage.setItem(GENDER_KEY, input.value);
+      }
+    });
+  });
+}
+
+if (gameSilhouettes.length) {
+  const savedGender = localStorage.getItem(GENDER_KEY) || "male";
+
+  gameSilhouettes.forEach((image) => {
+    const shouldShow =
+      (savedGender === "male" && image.classList.contains("game-silhouette-male")) ||
+      (savedGender === "female" && image.classList.contains("game-silhouette-female"));
+
+    image.hidden = !shouldShow;
+  });
 }
 
 if (statInputs.length && remainingPoints) {
