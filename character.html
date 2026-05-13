@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="lt">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Z-Fusion | Veikėjo pasirinkimas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Rajdhani:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="background-grid" aria-hidden="true"></div>
+  <div class="energy-cloud energy-cloud-one" aria-hidden="true"></div>
+  <div class="energy-cloud energy-cloud-two" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <a class="brand" href="index.html" aria-label="Grįžti į Z-Fusion pradžią">
+      <span class="brand-mark">Z</span>
+      <span>
+        <strong>Z-Fusion</strong>
+        <small>Veikėjo kūrimas</small>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="Veikėjo puslapio navigacija">
+      <a href="index.html">Pradžia</a>
+      <a href="#race">Rasė</a>
+      <a href="#style">Stilius</a>
+      <a href="#preview">Peržiūra</a>
+    </nav>
+
+    <a class="topbar-action" href="#race">Kurti veikėją</a>
+  </header>
+
+  <main>
+    <section class="character-hero">
+      <div class="character-copy">
+        <p class="label">Naujo kovotojo startas</p>
+        <h1>Pasirink savo veikėją</h1>
+        <p>
+          Susikurk kovotoją, pasirink rasę ir nusistatyk pradinį kovos stilių.
+          Šis puslapis paruoštas kaip atskiras Z-Fusion veikėjo kūrimo ekranas.
+        </p>
+      </div>
+
+      <form class="identity-card" action="#" method="post">
+        <div class="form-heading">
+          <span class="form-icon">ID</span>
+          <div>
+            <h3>Kovotojo tapatybė</h3>
+            <p>Pirmas žingsnis į turnyrą.</p>
+          </div>
+        </div>
+
+        <label for="fighter-name">Veikėjo vardas</label>
+        <input id="fighter-name" name="fighter-name" type="text" placeholder="pvz. Arion Fusion" autocomplete="off">
+
+        <label for="fighter-title">Titulas</label>
+        <input id="fighter-title" name="fighter-title" type="text" placeholder="pvz. Žaibo karys" autocomplete="off">
+
+        <button class="button button-primary" type="submit">Išsaugoti pasirinkimą</button>
+      </form>
+    </section>
+
+    <section id="race" class="character-section">
+      <div class="section-title compact">
+        <p class="label">Rasės pasirinkimas</p>
+        <h2>Kokia tavo kovotojo kilmė?</h2>
+        <p>
+          Pasirink rasę pagal žaidimo stilių: gryna jėga, regeneracija,
+          technologinis tikslumas arba žmogiškas balansas.
+        </p>
+      </div>
+
+      <div class="race-grid">
+        <label class="choice-card saiyan-card">
+          <input type="radio" name="race" value="saiyan" checked>
+          <span class="choice-mark">S</span>
+          <strong>Saiyan</strong>
+          <small>Didelė galia, transformacijos ir agresyvus puolimas.</small>
+        </label>
+
+        <label class="choice-card namek-card">
+          <input type="radio" name="race" value="namek">
+          <span class="choice-mark">N</span>
+          <strong>Namek</strong>
+          <small>Regeneracija, strategija ir stabilus energijos valdymas.</small>
+        </label>
+
+        <label class="choice-card android-card">
+          <input type="radio" name="race" value="android">
+          <span class="choice-mark">A</span>
+          <strong>Android</strong>
+          <small>Technologinis tikslumas, ištvermė ir šaltas skaičiavimas.</small>
+        </label>
+
+        <label class="choice-card human-card">
+          <input type="radio" name="race" value="human">
+          <span class="choice-mark">H</span>
+          <strong>Human</strong>
+          <small>Balansas, greitas tobulėjimas ir lankstus kovos stilius.</small>
+        </label>
+      </div>
+    </section>
+
+    <section id="style" class="character-section split-section">
+      <article class="style-panel">
+        <div class="card-heading">
+          <div>
+            <p class="label">Kovos stilius</p>
+            <h2>Pasirink taktiką</h2>
+          </div>
+          <span class="pill">Start build</span>
+        </div>
+
+        <div class="style-list">
+          <label>
+            <input type="radio" name="combat-style" value="power" checked>
+            <span>
+              <strong>Power striker</strong>
+              <small>Maksimali žala ir greitas varžovo spaudimas.</small>
+            </span>
+          </label>
+
+          <label>
+            <input type="radio" name="combat-style" value="speed">
+            <span>
+              <strong>Speed breaker</strong>
+              <small>Greitos atakos, išsisukimai ir kombinuoti smūgiai.</small>
+            </span>
+          </label>
+
+          <label>
+            <input type="radio" name="combat-style" value="energy">
+            <span>
+              <strong>Ki controller</strong>
+              <small>Energijos bangos, apsauga ir tolimos distancijos kova.</small>
+            </span>
+          </label>
+        </div>
+      </article>
+
+      <article id="preview" class="preview-panel">
+        <p class="label">Profilio peržiūra</p>
+        <div class="preview-avatar">Z</div>
+        <h2>Fusion legenda</h2>
+        <p>
+          Pradinis kovotojo profilis bus paruoštas turnyrams, arenoms ir
+          transformacijų progresui.
+        </p>
+
+        <dl class="preview-stats">
+          <div>
+            <dt>Pradinė galia</dt>
+            <dd>7 500</dd>
+          </div>
+          <div>
+            <dt>Ki rezervas</dt>
+            <dd>82%</dd>
+          </div>
+          <div>
+            <dt>Rangas</dt>
+            <dd>Rookie</dd>
+          </div>
+        </dl>
+      </article>
+    </section>
+  </main>
+</body>
+</html>
