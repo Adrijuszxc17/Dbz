@@ -124,6 +124,12 @@ table {
 .next-action-card,
 .game-card,
 .bottom-chat,
+.inventory-player-chip,
+.equipment-panel,
+.inventory-bag,
+.equipment-slot,
+.quick-slot,
+.bag-item,
 .table-card {
   border: 1px solid var(--line);
   background: linear-gradient(180deg, rgba(17, 24, 43, 0.84), rgba(8, 12, 24, 0.76));
@@ -208,6 +214,7 @@ table {
 .character-hero,
 .creator-shell,
 .game-shell,
+.inventory-shell,
 .panel-section,
 .analytics-layout {
   width: min(1220px, calc(100% - 2rem));
@@ -1212,6 +1219,230 @@ h3 {
   cursor: pointer;
 }
 
+.inventory-shell {
+  padding: 3.6rem 0 5rem;
+}
+
+.inventory-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(240px, 0.34fr);
+  gap: 1rem;
+  align-items: end;
+  margin-bottom: 1rem;
+}
+
+.inventory-header p {
+  max-width: 720px;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
+.inventory-player-chip {
+  padding: 1rem;
+  border-radius: var(--radius-md);
+}
+
+.inventory-player-chip span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.inventory-player-chip strong {
+  display: block;
+  margin-top: 0.25rem;
+  font-size: 1.45rem;
+}
+
+.inventory-layout {
+  display: grid;
+  grid-template-columns: minmax(420px, 0.92fr) minmax(340px, 0.72fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.equipment-panel,
+.inventory-bag {
+  padding: 1.2rem;
+  border-radius: var(--radius-lg);
+}
+
+.equipment-stage {
+  position: relative;
+  min-height: 39rem;
+  margin-bottom: 1rem;
+  background:
+    radial-gradient(circle at 50% 42%, rgba(255, 209, 102, 0.2), transparent 28%),
+    linear-gradient(rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+    rgba(4, 9, 20, 0.62);
+  background-size: auto, 34px 34px, 34px 34px, auto;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+}
+
+.inventory-silhouette {
+  position: absolute;
+  inset: 5rem 30% 2rem 30%;
+  display: grid;
+  place-items: end center;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.equipment-slot,
+.quick-slot {
+  min-height: 6.4rem;
+  padding: 0.75rem;
+  border-radius: 18px;
+  transition: 180ms ease;
+}
+
+.equipment-slot {
+  position: absolute;
+  width: 10.5rem;
+}
+
+.equipment-slot span,
+.quick-slot span {
+  display: block;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.equipment-slot strong,
+.quick-slot strong {
+  display: block;
+  margin-top: 0.25rem;
+}
+
+.head-slot {
+  top: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.clothes-slot {
+  top: 11rem;
+  right: 1rem;
+}
+
+.bracelet-slot {
+  top: 11rem;
+  left: 1rem;
+}
+
+.wraps-slot {
+  bottom: 9.5rem;
+  left: 1rem;
+}
+
+.boots-slot {
+  right: 1rem;
+  bottom: 9.5rem;
+}
+
+.drop-slot.is-over {
+  border-color: rgba(255, 209, 102, 0.8);
+  box-shadow: 0 0 0 4px rgba(255, 209, 102, 0.12), var(--shadow);
+}
+
+.quick-slots {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.bag-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.bag-item {
+  display: grid;
+  gap: 0.45rem;
+  min-height: 9.5rem;
+  padding: 0.85rem;
+  color: var(--text);
+  font: inherit;
+  text-align: left;
+  border-radius: 18px;
+  cursor: grab;
+  transition: 180ms ease;
+}
+
+.bag-item:active {
+  cursor: grabbing;
+}
+
+.bag-item:hover,
+.bag-item:focus-visible {
+  transform: translateY(-3px);
+  border-color: rgba(34, 211, 238, 0.5);
+}
+
+.bag-item.is-dragging {
+  opacity: 0.55;
+}
+
+.bag-item small {
+  color: var(--muted);
+}
+
+.item-photo {
+  display: grid;
+  width: 3.4rem;
+  height: 3.4rem;
+  place-items: center;
+  color: #07111f;
+  font-family: "Rajdhani", "Inter", sans-serif;
+  font-size: 1.3rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--gold), var(--orange));
+  border-radius: 1rem;
+  box-shadow: 0 0 28px rgba(255, 159, 28, 0.24);
+}
+
+.clothes-photo,
+.ki-photo {
+  background: linear-gradient(135deg, var(--cyan), var(--blue));
+}
+
+.bracelet-photo,
+.health-photo {
+  background: linear-gradient(135deg, #ff9ac1, var(--red));
+}
+
+.wraps-photo,
+.bean-photo {
+  background: linear-gradient(135deg, var(--green), var(--cyan));
+}
+
+.is-equipped {
+  min-height: auto;
+  padding: 0;
+  background: transparent;
+  border: 0;
+  box-shadow: none;
+  cursor: default;
+}
+
+.is-equipped .item-photo {
+  width: 2.7rem;
+  height: 2.7rem;
+}
+
+.inventory-hint {
+  margin: 1rem 0 0;
+  color: var(--muted);
+  line-height: 1.7;
+}
+
 .panel-section {
   padding: 3.6rem 0;
 }
@@ -1530,6 +1761,8 @@ tbody tr:last-child td {
   .game-hero,
   .game-grid,
   .lower-grid,
+  .inventory-header,
+  .inventory-layout,
   .section-title,
   .analytics-layout {
     grid-template-columns: 1fr;
@@ -1549,6 +1782,7 @@ tbody tr:last-child td {
   .character-hero,
   .creator-shell,
   .game-shell,
+  .inventory-shell,
   .panel-section,
   .analytics-layout {
     width: min(100% - 1rem, 620px);
@@ -1572,7 +1806,9 @@ tbody tr:last-child td {
   .locked-grid,
   .inventory-grid,
   .bottom-chat,
-  .chat-form {
+  .chat-form,
+  .quick-slots,
+  .bag-grid {
     grid-template-columns: 1fr;
   }
 
@@ -1585,6 +1821,26 @@ tbody tr:last-child td {
   .bottom-chat {
     position: static;
     margin-bottom: 1rem;
+  }
+
+  .equipment-stage {
+    display: grid;
+    gap: 0.75rem;
+    min-height: auto;
+    padding: 0.75rem;
+  }
+
+  .equipment-slot {
+    position: static;
+    width: auto;
+    transform: none;
+  }
+
+  .inventory-silhouette {
+    position: relative;
+    inset: auto;
+    min-height: 20rem;
+    order: -1;
   }
 
   .bar-row {

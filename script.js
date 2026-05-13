@@ -4,9 +4,12 @@ const TOTAL_POINTS = 100;
 
 const registerNameInput = document.querySelector("#register-name");
 const fighterNameInput = document.querySelector("#fighter-name");
-const nameTargets = document.querySelectorAll("#fighter-name-display, #character-preview-name, #game-player-name, #game-chat-name");
+const nameTargets = document.querySelectorAll("#fighter-name-display, #character-preview-name, #game-player-name, #game-chat-name, #inventory-player-name");
 const genderInputs = document.querySelectorAll("input[name='gender-preview']");
 const gameSilhouettes = document.querySelectorAll(".game-silhouette");
+const bagItems = document.querySelectorAll(".bag-item");
+const dropSlots = document.querySelectorAll(".drop-slot");
+const inventoryHint = document.querySelector("#inventory-hint");
 const statInputs = Array.from(document.querySelectorAll(".stat-range"));
 const remainingPoints = document.querySelector("#remaining-points");
 
@@ -66,6 +69,60 @@ if (gameSilhouettes.length) {
       (savedGender === "female" && image.classList.contains("game-silhouette-female"));
 
     image.hidden = !shouldShow;
+  });
+}
+
+if (bagItems.length && dropSlots.length) {
+  let draggedItem = null;
+
+  const setInventoryHint = (message) => {
+    if (inventoryHint) {
+      inventoryHint.textContent = message;
+    }
+  };
+
+  bagItems.forEach((item) => {
+    item.addEventListener("dragstart", (event) => {
+      draggedItem = item;
+      item.classList.add("is-dragging");
+      event.dataTransfer.setData("text/plain", item.dataset.slot);
+      event.dataTransfer.effectAllowed = "copy";
+      setInventoryHint(`Tempiamas: ${item.dataset.item}`);
+    });
+
+    item.addEventListener("dragend", () => {
+      item.classList.remove("is-dragging");
+      draggedItem = null;
+    });
+  });
+
+  dropSlots.forEach((slot) => {
+    slot.addEventListener("dragover", (event) => {
+      event.preventDefault();
+      slot.classList.add("is-over");
+    });
+
+    slot.addEventListener("dragleave", () => {
+      slot.classList.remove("is-over");
+    });
+
+    slot.addEventListener("drop", (event) => {
+      event.preventDefault();
+      slot.classList.remove("is-over");
+
+      if (!draggedItem || draggedItem.dataset.slot !== slot.dataset.accept) {
+        setInventoryHint("Šitas daiktas netinka šiam slotui.");
+        return;
+      }
+
+      const equippedItem = draggedItem.cloneNode(true);
+      equippedItem.removeAttribute("draggable");
+      equippedItem.classList.remove("is-dragging");
+      equippedItem.classList.add("is-equipped");
+      slot.innerHTML = "";
+      slot.append(equippedItem);
+      setInventoryHint(`${draggedItem.dataset.item} įdėta į slotą.`);
+    });
   });
 }
 
