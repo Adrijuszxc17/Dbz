@@ -24,12 +24,13 @@
     </a>
 
     <nav class="nav" aria-label="Pagrindinė navigacija">
+      <a href="#auth">Prisijungimas</a>
       <a href="#stats">Statistika</a>
       <a href="#arena">Arenos</a>
       <a href="#ranking">Reitingas</a>
     </nav>
 
-    <a class="topbar-action" href="#ranking">Į turnyrą</a>
+    <a class="topbar-action" href="#auth">Prisijungti</a>
   </header>
 
   <main id="top">
@@ -44,7 +45,7 @@
         </p>
 
         <div class="hero-actions">
-          <a class="button button-primary" href="#stats">Žiūrėti statistiką</a>
+          <a class="button button-primary" href="#auth">Sukurti paskyrą</a>
           <a class="button button-ghost" href="#ranking">Turnyro reitingas</a>
         </div>
       </div>
@@ -73,6 +74,66 @@
           </div>
         </div>
       </aside>
+    </section>
+
+    <section id="auth" class="auth-section">
+      <div class="section-title compact">
+        <p class="label">Paskyros pradžia</p>
+        <h2>Registracija ir prisijungimas</h2>
+        <p>
+          Susikurk Z-Fusion paskyrą arba prisijunk prie esamos. Veikėjo kūrimą
+          ir rasės pasirinkimą pridėsime atskirame puslapyje.
+        </p>
+      </div>
+
+      <div class="auth-grid">
+        <form class="auth-card" action="#" method="post">
+          <div class="form-heading">
+            <span class="form-icon">01</span>
+            <div>
+              <h3>Prisijungimas</h3>
+              <p>Grįžk į savo kovų profilį.</p>
+            </div>
+          </div>
+
+          <label for="login-name">Vartotojo vardas arba el. paštas</label>
+          <input id="login-name" name="login-name" type="text" placeholder="pvz. fusion_hero" autocomplete="username">
+
+          <label for="login-password">Slaptažodis</label>
+          <input id="login-password" name="login-password" type="password" placeholder="Įvesk slaptažodį" autocomplete="current-password">
+
+          <div class="form-row">
+            <label class="check-option">
+              <input type="checkbox" name="remember">
+              <span>Prisiminti mane</span>
+            </label>
+            <a href="#auth">Pamiršai?</a>
+          </div>
+
+          <button class="button button-primary" type="submit">Prisijungti</button>
+        </form>
+
+        <form class="auth-card auth-card-accent" action="#" method="post">
+          <div class="form-heading">
+            <span class="form-icon">02</span>
+            <div>
+              <h3>Registracija</h3>
+              <p>Pasiruošk tapti fusion legenda.</p>
+            </div>
+          </div>
+
+          <label for="register-name">Vartotojo vardas</label>
+          <input id="register-name" name="register-name" type="text" placeholder="pvz. z_fusion_legend" autocomplete="username">
+
+          <label for="register-email">El. paštas</label>
+          <input id="register-email" name="register-email" type="email" placeholder="tavo@email.lt" autocomplete="email">
+
+          <label for="register-password">Slaptažodis</label>
+          <input id="register-password" name="register-password" type="password" placeholder="Sukurk slaptažodį" autocomplete="new-password">
+
+          <button class="button button-primary" type="submit">Registruotis</button>
+        </form>
+      </div>
     </section>
 
     <section id="stats" class="panel-section">
