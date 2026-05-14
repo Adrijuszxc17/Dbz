@@ -4,10 +4,13 @@ $pageUser = current_user();
 $pageCharacter = current_character();
 $displayName = display_name($pageUser);
 $displayGender = display_gender($pageCharacter);
-$level = (int) ($pageCharacter['level'] ?? 1);
+$level = (int) ($pageCharacter['level'] ?? 0);
 $hp = (int) ($pageCharacter['hp'] ?? 100);
-$ki = (int) ($pageCharacter['ki'] ?? 40);
-$stamina = (int) ($pageCharacter['stamina'] ?? 80);
+$kiPoints = (int) ($pageCharacter['ki_points'] ?? 6);
+$maxKi = max(1, $kiPoints);
+$ki = min((int) ($pageCharacter['ki'] ?? $maxKi), $maxKi);
+$stamina = (int) ($pageCharacter['stamina'] ?? 100);
+$rankName = rank_name_for_level($level);
 ?>
 <!DOCTYPE html>
 <html lang="lt">
@@ -21,7 +24,7 @@ $stamina = (int) ($pageCharacter['stamina'] ?? 80);
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
-<body data-user-name="<?= e($displayName) ?>" data-user-gender="<?= e($displayGender) ?>">
+<body data-user-name="<?= e($displayName) ?>" data-user-gender="<?= e($displayGender) ?>" data-player-hp="<?= $hp ?>" data-player-ki="<?= $ki ?>" data-player-max-ki="<?= $maxKi ?>" data-player-stamina="<?= $stamina ?>">
   <div class="background-grid" aria-hidden="true"></div>
   <div class="energy-cloud energy-cloud-one" aria-hidden="true"></div>
   <div class="energy-cloud energy-cloud-two" aria-hidden="true"></div>
@@ -69,7 +72,7 @@ $stamina = (int) ($pageCharacter['stamina'] ?? 80);
           <div>
             <p class="label">Žaidėjas</p>
             <h2 id="fight-player-name"><?= e($displayName) ?></h2>
-            <span class="rank-badge">Rookie • Level <?= $level ?></span>
+            <span class="rank-badge"><?= e($rankName) ?> • Level <?= $level ?></span>
           </div>
         </div>
 
@@ -81,8 +84,8 @@ $stamina = (int) ($pageCharacter['stamina'] ?? 80);
           </div>
           <div class="fight-bar ki-row">
             <span>Ki</span>
-            <div><i id="player-ki-bar" style="--value: <?= min($ki, 100) ?>%"></i></div>
-            <strong id="player-ki-text"><?= $ki ?>/100</strong>
+            <div><i id="player-ki-bar" style="--value: <?= (int) round(($ki / $maxKi) * 100) ?>%"></i></div>
+            <strong id="player-ki-text"><?= $ki ?>/<?= $maxKi ?></strong>
           </div>
           <div class="fight-bar stamina-row">
             <span>Stamina</span>

@@ -16,6 +16,9 @@ const statInputs = Array.from(document.querySelectorAll(".stat-range"));
 const remainingPoints = document.querySelector("#remaining-points");
 const fightActions = document.querySelectorAll("[data-fight-action]");
 const resetFightButton = document.querySelector("#reset-fight");
+const chatForm = document.querySelector(".chat-form");
+const chatInput = document.querySelector("#chat-message");
+const chatFeed = document.querySelector("#chat-feed");
 
 if (registerNameInput) {
   const saveRegisterName = () => {
@@ -138,17 +141,34 @@ if (bagItems.length && dropSlots.length) {
   });
 }
 
+if (chatForm && chatInput && chatFeed) {
+  chatForm.addEventListener("submit", (event) => {
+    event.preventDefault();
+
+    const message = chatInput.value.trim();
+
+    if (!message) {
+      return;
+    }
+
+    const entry = document.createElement("p");
+    entry.textContent = `Tu: ${message}`;
+    chatFeed.prepend(entry);
+    chatInput.value = "";
+  });
+}
+
 if (fightActions.length) {
   const maxStats = {
     hp: 100,
-    ki: 100,
+    ki: Number(document.body.dataset.playerMaxKi || 100),
     stamina: 100,
   };
 
   const player = {
-    hp: 100,
-    ki: 40,
-    stamina: 80,
+    hp: Number(document.body.dataset.playerHp || 100),
+    ki: Number(document.body.dataset.playerKi || document.body.dataset.playerMaxKi || 40),
+    stamina: Number(document.body.dataset.playerStamina || 100),
     defending: false,
     healUsed: false,
   };
@@ -272,13 +292,15 @@ if (fightActions.length) {
     }
 
     if (action === "ki") {
-      if (player.ki < 25) {
+      const kiCost = Math.max(3, Math.ceil(maxStats.ki * 0.45));
+
+      if (player.ki < kiCost) {
         addFightLog("Trūksta Ki energijos.");
         return;
       }
 
-      player.ki = clamp(player.ki - 25, maxStats.ki);
-      const damage = 22 + Math.floor(Math.random() * 10);
+      player.ki = clamp(player.ki - kiCost, maxStats.ki);
+      const damage = 12 + Math.ceil(maxStats.ki * 0.75) + Math.floor(Math.random() * 8);
       npc.hp = clamp(npc.hp - damage, maxStats.hp);
       addFightLog(`Ki banga pataikė. NPC gavo ${damage} žalos.`);
     }
@@ -290,7 +312,7 @@ if (fightActions.length) {
     }
 
     if (action === "charge") {
-      player.ki = clamp(player.ki + 22, maxStats.ki);
+      player.ki = clamp(player.ki + Math.max(3, Math.ceil(maxStats.ki * 0.35)), maxStats.ki);
       player.stamina = clamp(player.stamina + 8, maxStats.stamina);
       addFightLog("Tu sukaupei Ki energiją.");
     }
@@ -306,7 +328,7 @@ if (fightActions.length) {
       addFightLog("Panaudojai gyvybės kapsulę ir atstatei HP.");
     }
 
-    player.ki = clamp(player.ki + 4, maxStats.ki);
+    player.ki = clamp(player.ki + Math.max(1, Math.ceil(maxStats.ki * 0.08)), maxStats.ki);
     updateFightUi();
 
     if (npc.hp <= 0) {

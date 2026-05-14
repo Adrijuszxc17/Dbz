@@ -29,6 +29,7 @@ $strength = max(0, min(100, (int) ($_POST['strength'] ?? 5)));
 $speed = max(0, min(100, (int) ($_POST['speed'] ?? 1)));
 $ki = max(0, min(100, (int) ($_POST['ki'] ?? 6)));
 $defense = max(0, min(100, (int) ($_POST['defense'] ?? 4)));
+$startingKi = max(1, $ki);
 
 if (($strength + $speed + $ki + $defense) > 100) {
     flash_set('error', 'Pradiniai taškai negali viršyti 100.');
@@ -37,7 +38,7 @@ if (($strength + $speed + $ki + $defense) > 100) {
 
 $statement = $pdo->prepare(
     'INSERT INTO characters (user_id, name, gender, strength_points, speed_points, ki_points, defense_points, level, xp, hp, ki, stamina)
-     VALUES (:user_id, :name, :gender, :strength, :speed, :ki_points, :defense, 0, 0, 100, 100, 100)
+     VALUES (:user_id, :name, :gender, :strength, :speed, :ki_points, :defense, 0, 0, 100, :ki_current, 100)
      ON DUPLICATE KEY UPDATE
        name = VALUES(name),
        gender = VALUES(gender),
@@ -54,6 +55,7 @@ $statement->execute([
     'strength' => $strength,
     'speed' => $speed,
     'ki_points' => $ki,
+    'ki_current' => $startingKi,
     'defense' => $defense,
 ]);
 

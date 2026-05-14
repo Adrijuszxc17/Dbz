@@ -32,15 +32,26 @@ function current_user(): ?array
             'id' => (int) $_SESSION['user_id'],
             'username' => $_SESSION['username'] ?? null,
             'email' => $_SESSION['email'] ?? null,
+            'role' => $_SESSION['role'] ?? 'user',
         ];
     }
 
     try {
-        $statement = $pdo->prepare('SELECT id, username, email, created_at FROM users WHERE id = ? LIMIT 1');
+        $statement = $pdo->prepare('SELECT id, username, email, role, created_at FROM users WHERE id = ? LIMIT 1');
         $statement->execute([$_SESSION['user_id']]);
         $user = $statement->fetch();
     } catch (PDOException) {
-        return null;
+        try {
+            $statement = $pdo->prepare('SELECT id, username, email, created_at FROM users WHERE id = ? LIMIT 1');
+            $statement->execute([$_SESSION['user_id']]);
+            $user = $statement->fetch();
+
+            if ($user) {
+                $user['role'] = 'user';
+            }
+        } catch (PDOException) {
+            return null;
+        }
     }
 
     return $user ?: null;
@@ -210,5 +221,39 @@ function required_xp_for_level(int $level): int
 {
     $level = max(0, $level);
 
-    return (int) round(200 * pow($level + 1, 1.5));
+    return (int) (200 * pow($level + 1, 1.5));
+}
+
+function rank_name_for_level(int $level): string
+{
+    return match (true) {
+        $level >= 100 => 'God Warrior',
+        $level >= 90 => 'Legendary Fighter',
+        $level >= 80 => 'Galactic Champion',
+        $level >= 70 => 'Elite Saiyan',
+        $level >= 60 => 'Z Warrior',
+        $level >= 50 => 'Super Fighter',
+        $level >= 40 => 'Ki Master',
+        $level >= 30 => 'Elite Warrior',
+        $level >= 20 => 'Warrior',
+        $level >= 10 => 'Fighter',
+        default => 'Rookie',
+    };
+}
+
+function display_role(?array $user): string
+{
+    $role = strtolower((string) ($user['role'] ?? 'user'));
+
+    return in_array($role, ['admin', 'vip', 'user', 'remejas'], true) ? $role : 'user';
+}
+
+function role_label(string $role): string
+{
+    return match ($role) {
+        'admin' => 'Admin',
+        'vip' => 'VIP',
+        'remejas' => 'Remėjas',
+        default => 'User',
+    };
 }

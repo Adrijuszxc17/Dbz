@@ -6,7 +6,6 @@ $displayName = display_name($pageUser);
 $displayGender = display_gender($pageCharacter);
 $level = (int) ($pageCharacter['level'] ?? 0);
 $hp = (int) ($pageCharacter['hp'] ?? 100);
-$ki = (int) ($pageCharacter['ki'] ?? 100);
 $stamina = (int) ($pageCharacter['stamina'] ?? 100);
 $xp = (int) ($pageCharacter['xp'] ?? 0);
 $requiredXp = required_xp_for_level($level);
@@ -15,6 +14,11 @@ $strengthPoints = (int) ($pageCharacter['strength_points'] ?? 5);
 $speedPoints = (int) ($pageCharacter['speed_points'] ?? 1);
 $kiPoints = (int) ($pageCharacter['ki_points'] ?? 6);
 $defensePoints = (int) ($pageCharacter['defense_points'] ?? 4);
+$maxKi = max(1, $kiPoints);
+$ki = min((int) ($pageCharacter['ki'] ?? $maxKi), $maxKi);
+$rankName = rank_name_for_level($level);
+$role = display_role($pageUser);
+$roleLabel = role_label($role);
 ?>
 <!DOCTYPE html>
 <html lang="lt">
@@ -65,8 +69,11 @@ $defensePoints = (int) ($pageCharacter['defense_points'] ?? 4);
           </div>
           <div>
             <p class="label">Žaidėjo statusas</p>
-            <h1 id="game-player-name"><?= e($displayName) ?></h1>
-            <span class="rank-badge">Rookie • Level <?= $level ?></span>
+            <h1 id="game-player-name" class="player-name-heading role-glow role-<?= e($role) ?>"><?= e($displayName) ?></h1>
+            <div class="badge-row">
+              <span class="rank-badge"><?= e($rankName) ?> • Level <?= $level ?></span>
+              <span class="role-badge role-glow role-<?= e($role) ?>"><?= e($roleLabel) ?></span>
+            </div>
           </div>
         </div>
 
@@ -78,8 +85,8 @@ $defensePoints = (int) ($pageCharacter['defense_points'] ?? 4);
           </div>
           <div class="resource-row ki-row">
             <span>Ki</span>
-            <div><i style="--value: <?= min($ki, 100) ?>%"></i></div>
-            <strong><?= $ki ?>/100</strong>
+            <div><i style="--value: <?= (int) round(($ki / $maxKi) * 100) ?>%"></i></div>
+            <strong><?= $ki ?>/<?= $maxKi ?></strong>
           </div>
           <div class="resource-row stamina-row">
             <span>Stamina</span>
@@ -232,8 +239,9 @@ $defensePoints = (int) ($pageCharacter['defense_points'] ?? 4);
     <div class="chat-copy">
       <span>Veikėjo info</span>
       <strong id="game-chat-name"><?= e($displayName) ?></strong>
-      <p>HP <?= $hp ?> • Ki <?= $ki ?> • Stamina <?= $stamina ?> • XP <?= $xp ?>/<?= $requiredXp ?></p>
+      <p>HP <?= $hp ?> • Ki <?= $ki ?>/<?= $maxKi ?> • Stamina <?= $stamina ?> • XP <?= $xp ?>/<?= $requiredXp ?></p>
     </div>
+    <div class="chat-feed" id="chat-feed" aria-live="polite"></div>
     <form class="chat-form" action="#" method="post">
       <label for="chat-message">Žinutė</label>
       <input id="chat-message" name="chat-message" type="text" placeholder="Parašyk komandą arba pastabą...">

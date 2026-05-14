@@ -40,6 +40,7 @@ if ($action === 'register') {
         $_SESSION['user_id'] = (int) $pdo->lastInsertId();
         $_SESSION['username'] = $username;
         $_SESSION['email'] = $email;
+        $_SESSION['role'] = 'user';
 
         flash_set('success', 'Registracija sėkminga. Dabar sukurk veikėją.');
         redirect_to('character.php');
@@ -60,13 +61,25 @@ if ($action === 'login') {
 
     try {
         $statement = $pdo->prepare(
-            'SELECT id, username, email, password_hash FROM users WHERE username = ? OR email = ? LIMIT 1'
+            'SELECT id, username, email, role, password_hash FROM users WHERE username = ? OR email = ? LIMIT 1'
         );
         $statement->execute([$login, $login]);
         $user = $statement->fetch();
     } catch (PDOException) {
-        flash_set('error', 'Prisijungimo DB klaida. Patikrink, ar importuotas database/schema.sql.');
-        redirect_to('index.php#auth');
+        try {
+            $statement = $pdo->prepare(
+                'SELECT id, username, email, password_hash FROM users WHERE username = ? OR email = ? LIMIT 1'
+            );
+            $statement->execute([$login, $login]);
+            $user = $statement->fetch();
+
+            if ($user) {
+                $user['role'] = 'user';
+            }
+        } catch (PDOException) {
+            flash_set('error', 'Prisijungimo DB klaida. Patikrink, ar importuotas database/schema.sql.');
+            redirect_to('index.php#auth');
+        }
     }
 
     if (!$user || !password_verify($password, (string) $user['password_hash'])) {
@@ -77,6 +90,7 @@ if ($action === 'login') {
     $_SESSION['user_id'] = (int) $user['id'];
     $_SESSION['username'] = (string) $user['username'];
     $_SESSION['email'] = (string) $user['email'];
+    $_SESSION['role'] = (string) ($user['role'] ?? 'user');
 
     flash_set('success', 'Prisijungta sėkmingai.');
     redirect_to('game.php');
