@@ -1,3 +1,15 @@
+<?php
+require_once __DIR__ . '/includes/bootstrap.php';
+$pageUser = current_user();
+$pageCharacter = current_character();
+$displayName = display_name($pageUser);
+$displayGender = display_gender($pageCharacter);
+$level = (int) ($pageCharacter['level'] ?? 1);
+$hp = (int) ($pageCharacter['hp'] ?? 92);
+$ki = (int) ($pageCharacter['ki'] ?? 64);
+$stamina = (int) ($pageCharacter['stamina'] ?? 78);
+$xp = (int) ($pageCharacter['xp'] ?? 220);
+?>
 <!DOCTYPE html>
 <html lang="lt">
 <head>
@@ -10,13 +22,13 @@
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
-<body>
+<body data-user-name="<?= e($displayName) ?>" data-user-gender="<?= e($displayGender) ?>">
   <div class="background-grid" aria-hidden="true"></div>
   <div class="energy-cloud energy-cloud-one" aria-hidden="true"></div>
   <div class="energy-cloud energy-cloud-two" aria-hidden="true"></div>
 
   <header class="topbar">
-    <a class="brand" href="index.html" aria-label="Grįžti į Z-Fusion pradžią">
+    <a class="brand" href="index.php" aria-label="Grįžti į Z-Fusion pradžią">
       <span class="brand-mark">Z</span>
       <span>
         <strong>Z-Fusion</strong>
@@ -25,10 +37,10 @@
     </a>
 
     <nav class="nav" aria-label="Žaidimo navigacija">
-      <a href="index.html">Pradžia</a>
-      <a href="character.html">Veikėjas</a>
-      <a href="inventory.html">Inventorius</a>
-      <a href="fight.html">Kova</a>
+      <a href="index.php">Pradžia</a>
+      <a href="character.php">Veikėjas</a>
+      <a href="inventory.php">Inventorius</a>
+      <a href="fight.php">Kova</a>
       <a href="#quests">Užduotys</a>
       <a href="#map">Žemėlapis</a>
       <a href="#chat">Chat</a>
@@ -47,31 +59,31 @@
           </div>
           <div>
             <p class="label">Žaidėjo statusas</p>
-            <h1 id="game-player-name">Vardas bus įkeltas</h1>
-            <span class="rank-badge">Rookie • Level 1</span>
+            <h1 id="game-player-name"><?= e($displayName) ?></h1>
+            <span class="rank-badge">Rookie • Level <?= $level ?></span>
           </div>
         </div>
 
         <div class="status-bars" aria-label="Žaidėjo resursai">
           <div class="resource-row hp-row">
             <span>HP</span>
-            <div><i style="--value: 92%"></i></div>
-            <strong>92/100</strong>
+            <div><i style="--value: <?= min($hp, 100) ?>%"></i></div>
+            <strong><?= $hp ?>/100</strong>
           </div>
           <div class="resource-row ki-row">
             <span>Ki</span>
-            <div><i style="--value: 64%"></i></div>
-            <strong>64/100</strong>
+            <div><i style="--value: <?= min($ki, 100) ?>%"></i></div>
+            <strong><?= $ki ?>/100</strong>
           </div>
           <div class="resource-row stamina-row">
             <span>Stamina</span>
-            <div><i style="--value: 78%"></i></div>
-            <strong>78/100</strong>
+            <div><i style="--value: <?= min($stamina, 100) ?>%"></i></div>
+            <strong><?= $stamina ?>/100</strong>
           </div>
           <div class="resource-row xp-row">
             <span>XP</span>
-            <div><i style="--value: 22%"></i></div>
-            <strong>220/1000</strong>
+            <div><i style="--value: <?= min((int) ($xp / 10), 100) ?>%"></i></div>
+            <strong><?= $xp ?>/1000</strong>
           </div>
         </div>
       </article>
@@ -83,7 +95,7 @@
           Pirmas tikslas: sustiprinti kūną, pajusti Ki energiją ir pasiruošti
           pirmai meistro užduočiai.
         </p>
-        <a class="button button-primary" href="fight.html">Pradėti kovą</a>
+        <a class="button button-primary" href="fight.php">Pradėti kovą</a>
       </article>
     </section>
 
@@ -169,7 +181,7 @@
         <div class="game-map" aria-label="Mini žemėlapis">
           <span class="map-node home-node">Namai</span>
           <span class="map-node training-node">Treniruotės</span>
-          <a class="map-node arena-node" href="fight.html">Arena</a>
+          <a class="map-node arena-node" href="fight.php">Arena</a>
           <span class="map-node masters-node locked">Meistrai</span>
         </div>
       </article>
@@ -180,7 +192,7 @@
             <p class="label">Inventorius</p>
             <h2>Pradžios daiktai</h2>
           </div>
-          <a class="pill" href="inventory.html">Atidaryti</a>
+          <a class="pill" href="inventory.php">Atidaryti</a>
         </div>
 
         <div class="inventory-grid">
@@ -200,8 +212,8 @@
     </div>
     <div class="chat-copy">
       <span>Veikėjo info</span>
-      <strong id="game-chat-name">Vardas bus įkeltas</strong>
-      <p>HP 92 • Ki 64 • Stamina 78 • Lygis 1</p>
+      <strong id="game-chat-name"><?= e($displayName) ?></strong>
+      <p>HP <?= $hp ?> • Ki <?= $ki ?> • Stamina <?= $stamina ?> • Lygis <?= $level ?></p>
     </div>
     <form class="chat-form" action="#" method="post">
       <label for="chat-message">Žinutė</label>

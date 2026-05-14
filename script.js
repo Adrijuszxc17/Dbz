@@ -2,10 +2,12 @@ const STORAGE_KEY = "zFusionRegisterName";
 const GENDER_KEY = "zFusionGender";
 const TOTAL_POINTS = 100;
 
+const serverName = document.body.dataset.userName;
+const serverGender = document.body.dataset.userGender;
 const registerNameInput = document.querySelector("#register-name");
 const fighterNameInput = document.querySelector("#fighter-name");
 const nameTargets = document.querySelectorAll("#fighter-name-display, #character-preview-name, #game-player-name, #game-chat-name, #inventory-player-name, #fight-player-name");
-const genderInputs = document.querySelectorAll("input[name='gender-preview']");
+const genderInputs = document.querySelectorAll("input[name='gender']");
 const gameSilhouettes = document.querySelectorAll(".game-silhouette");
 const bagItems = document.querySelectorAll(".bag-item");
 const dropSlots = document.querySelectorAll(".drop-slot");
@@ -28,8 +30,16 @@ if (registerNameInput) {
   registerNameInput.form?.addEventListener("submit", saveRegisterName);
 }
 
+if (serverName && serverName !== "Vardas bus įkeltas") {
+  localStorage.setItem(STORAGE_KEY, serverName);
+}
+
+if (serverGender) {
+  localStorage.setItem(GENDER_KEY, serverGender);
+}
+
 if (fighterNameInput || nameTargets.length) {
-  const savedName = localStorage.getItem(STORAGE_KEY);
+  const savedName = localStorage.getItem(STORAGE_KEY) || serverName;
 
   if (savedName) {
     if (fighterNameInput) {

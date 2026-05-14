@@ -1,3 +1,16 @@
+<?php
+require_once __DIR__ . '/includes/bootstrap.php';
+$pageUser = current_user();
+$pageCharacter = current_character();
+$displayName = display_name($pageUser);
+$displayGender = display_gender($pageCharacter);
+$flash = flash_get();
+$strength = (int) ($pageCharacter['strength_points'] ?? 5);
+$speed = (int) ($pageCharacter['speed_points'] ?? 1);
+$ki = (int) ($pageCharacter['ki_points'] ?? 6);
+$defense = (int) ($pageCharacter['defense_points'] ?? 4);
+$remaining = max(0, 100 - ($strength + $speed + $ki + $defense));
+?>
 <!DOCTYPE html>
 <html lang="lt">
 <head>
@@ -10,13 +23,13 @@
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
-<body>
+<body data-user-name="<?= e($displayName) ?>" data-user-gender="<?= e($displayGender) ?>">
   <div class="background-grid" aria-hidden="true"></div>
   <div class="energy-cloud energy-cloud-one" aria-hidden="true"></div>
   <div class="energy-cloud energy-cloud-two" aria-hidden="true"></div>
 
   <header class="topbar">
-    <a class="brand" href="index.html" aria-label="Grįžti į Z-Fusion pradžią">
+    <a class="brand" href="index.php" aria-label="Grįžti į Z-Fusion pradžią">
       <span class="brand-mark">Z</span>
       <span>
         <strong>Z-Fusion</strong>
@@ -25,18 +38,24 @@
     </a>
 
     <nav class="nav" aria-label="Veikėjo kūrimo navigacija">
-      <a href="index.html">Pradžia</a>
+      <a href="index.php">Pradžia</a>
       <a href="#identity">Tapatybė</a>
       <a href="#stats">Statistika</a>
       <a href="#preview">Peržiūra</a>
-      <a href="game.html">Game</a>
-      <a href="inventory.html">Inventorius</a>
+      <a href="game.php">Game</a>
+      <a href="inventory.php">Inventorius</a>
     </nav>
 
-    <a class="topbar-action" href="game.html">Į game</a>
+    <a class="topbar-action" href="game.php">Į game</a>
   </header>
 
   <main>
+    <?php if ($flash): ?>
+      <div class="flash-message flash-<?= e($flash['type']) ?>">
+        <?= e($flash['message']) ?>
+      </div>
+    <?php endif; ?>
+
     <section class="character-hero">
       <div class="character-copy">
         <p class="label">Originalus Z-Fusion herojus</p>
@@ -59,10 +78,10 @@
     </section>
 
     <section id="creator" class="creator-shell">
-      <input class="gender-switch" id="gender-male" type="radio" name="gender-preview" value="male" checked>
-      <input class="gender-switch" id="gender-female" type="radio" name="gender-preview" value="female">
+      <input form="character-form" class="gender-switch" id="gender-male" type="radio" name="gender" value="male" <?= $displayGender === 'male' ? 'checked' : '' ?>>
+      <input form="character-form" class="gender-switch" id="gender-female" type="radio" name="gender" value="female" <?= $displayGender === 'female' ? 'checked' : '' ?>>
 
-      <form class="builder-form" action="#" method="post">
+      <form id="character-form" class="builder-form" action="save-character.php" method="post">
         <div class="creation-steps" aria-label="Veikėjo kūrimo žingsniai">
           <span class="active">01 Tapatybė</span>
           <span>02 Taškai</span>
@@ -81,9 +100,9 @@
           <div class="form-grid">
             <div class="registered-name-card">
               <span>Vardas iš registracijos</span>
-              <strong id="fighter-name-display">Vardas bus įkeltas po registracijos</strong>
+              <strong id="fighter-name-display"><?= e($displayName) ?></strong>
               <small>Nereikia įvesti dar kartą.</small>
-              <input id="fighter-name" name="fighter-name" type="hidden">
+              <input id="fighter-name" name="fighter-name" type="hidden" value="<?= e($displayName) ?>">
             </div>
           </div>
 
@@ -104,34 +123,36 @@
               <p class="label">2 žingsnis</p>
               <h2>Pradiniai taškai</h2>
             </div>
-            <span class="pill">Liko <strong id="remaining-points">84</strong>/100</span>
+            <span class="pill">Liko <strong id="remaining-points"><?= $remaining ?></strong>/100</span>
           </div>
 
           <div class="points-grid">
             <label class="point-control">
               <span>Jėga</span>
-              <input class="stat-range" type="range" name="strength" min="0" max="100" value="5" data-output="strength-value">
-              <strong id="strength-value">5</strong>
+              <input class="stat-range" type="range" name="strength" min="0" max="100" value="<?= $strength ?>" data-output="strength-value">
+              <strong id="strength-value"><?= $strength ?></strong>
             </label>
 
             <label class="point-control">
               <span>Greitis</span>
-              <input class="stat-range" type="range" name="speed" min="0" max="100" value="1" data-output="speed-value">
-              <strong id="speed-value">1</strong>
+              <input class="stat-range" type="range" name="speed" min="0" max="100" value="<?= $speed ?>" data-output="speed-value">
+              <strong id="speed-value"><?= $speed ?></strong>
             </label>
 
             <label class="point-control">
               <span>Ki energija</span>
-              <input class="stat-range" type="range" name="ki" min="0" max="100" value="6" data-output="ki-value">
-              <strong id="ki-value">6</strong>
+              <input class="stat-range" type="range" name="ki" min="0" max="100" value="<?= $ki ?>" data-output="ki-value">
+              <strong id="ki-value"><?= $ki ?></strong>
             </label>
 
             <label class="point-control">
               <span>Gynyba</span>
-              <input class="stat-range" type="range" name="defense" min="0" max="100" value="4" data-output="defense-value">
-              <strong id="defense-value">4</strong>
+              <input class="stat-range" type="range" name="defense" min="0" max="100" value="<?= $defense ?>" data-output="defense-value">
+              <strong id="defense-value"><?= $defense ?></strong>
             </label>
           </div>
+
+          <button class="button button-primary save-character-button" type="submit">Išsaugoti veikėją</button>
         </section>
       </form>
 
@@ -143,7 +164,7 @@
           <img class="silhouette silhouette-female" src="photo/character/female.png" alt="Merginos veikėjo siluetas">
         </div>
 
-        <h2 id="character-preview-name">Vardas bus įkeltas</h2>
+        <h2 id="character-preview-name"><?= e($displayName) ?></h2>
         <p>
           Originalus žmogus, kurio istorija prasideda nuo nulio. Meistrai bus
           sutikti žaidimo eigoje, o technikos atsiras per treniruotes.

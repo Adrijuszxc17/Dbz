@@ -2,16 +2,20 @@
 
 Z-Fusion — veiksmo kupinas drakonų kovų pasaulis, kuriame legendiniai kovotojai atrakina galingas transformacijas, valdo energijos galias ir kovoja epinėse arenose dėl stipriausiojo titulo. Prisijunk prie turnyrų, tobulink savo kovotoją ir tapk tikra fusion legenda.
 
-Statinis HTML/CSS projektas su futuristiniu drakonų kovų dizainu, registracijos/prisijungimo formomis, originalaus veikėjo kūrimu, game hub langu, drag & drop inventoriumi, NPC kovos sistema, statistikos blokais, arenos analitika ir turnyro reitingu.
+PHP/MySQL projektas su futuristiniu drakonų kovų dizainu, registracijos/prisijungimo formomis, originalaus veikėjo kūrimu, game hub langu, drag & drop inventoriumi, NPC kovos sistema, statistikos blokais, arenos analitika ir turnyro reitingu.
 
 ## Failai
 
-- `index.html` — pagrindinis Z-Fusion puslapis su registracija, loginu, statistika ir reitingu.
-- `character.html` — atskiras originalaus žmogaus kovotojo kūrimo puslapis, kuriame vardas automatiškai rodomas iš registracijos, o ne įvedamas dar kartą. Taip pat yra lyties pasirinkimas, vyro/merginos siluetas, 100 pradinių taškų paskirstymas ir profilio peržiūra.
-- `game.html` — pagrindinis žaidimo langas su žaidėjo statusais, dienos progresu, įvykių logu, užrakintomis sistemomis, pirmo mokytojo bloku, mini žemėlapiu, inventoriumi ir apačios chat juosta.
-- `inventory.html` — inventoriaus langas su veikėjo siluetu kairėje, 5 pagrindiniais įrangos slotais, greitais resursų slotais ir dešinėje esančiais tempiamais daiktais.
-- `fight.html` — bazinė kovos su NPC sistema su HP/Ki/Stamina barais, veiksmų mygtukais, NPC atsaku ir kovos logu.
-- `script.js` — išsaugo registracijos vardą naršyklėje, perkelia vardą/siluetą į game, inventoriaus ir kovos langus, valdo pradinių taškų limitą, drag & drop inventorių ir NPC kovos logiką.
+- `index.php` — pagrindinis Z-Fusion puslapis su PHP/MySQL registracija ir prisijungimu.
+- `character.php` — originalaus žmogaus kovotojo kūrimas, lytis, pradiniai taškai ir saugojimas į MySQL.
+- `game.php` — pagrindinis žaidimo langas su žaidėjo statusais, dienos progresu, įvykių logu, mini žemėlapiu, inventoriumi ir chat juosta.
+- `inventory.php` — inventoriaus langas su veikėjo siluetu, 5 pagrindiniais įrangos slotais, greitais resursų slotais ir tempiamais daiktais.
+- `fight.php` — bazinė kovos su NPC sistema su HP/Ki/Stamina barais, veiksmų mygtukais, NPC atsaku ir kovos logu.
+- `auth.php` — registracijos ir prisijungimo handleris.
+- `save-character.php` — veikėjo duomenų išsaugojimas į MySQL.
+- `config/database.php` — PDO prisijungimas prie MySQL.
+- `database/schema.sql` — MySQL lentelių sukūrimas.
+- `script.js` — perkelia serverio vardą/siluetą į UI, valdo pradinių taškų limitą, drag & drop inventorių ir NPC kovos logiką.
 
 Veikėjo siluetų failai:
 
@@ -20,4 +24,16 @@ Veikėjo siluetų failai:
 
 ## Paleidimas
 
-Atidaryk `index.html` naršyklėje.
+1. Sukurk duomenų bazę importuodamas `database/schema.sql`.
+2. Nustatyk DB aplinkos kintamuosius, jei reikia:
+   - `DB_HOST`
+   - `DB_NAME`
+   - `DB_USER`
+   - `DB_PASS`
+3. Paleisk PHP serverį:
+
+```bash
+php -S localhost:8000
+```
+
+4. Atidaryk `http://localhost:8000/index.php`.

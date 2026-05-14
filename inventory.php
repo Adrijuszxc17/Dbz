@@ -1,3 +1,10 @@
+<?php
+require_once __DIR__ . '/includes/bootstrap.php';
+$pageUser = current_user();
+$pageCharacter = current_character();
+$displayName = display_name($pageUser);
+$displayGender = display_gender($pageCharacter);
+?>
 <!DOCTYPE html>
 <html lang="lt">
 <head>
@@ -10,13 +17,13 @@
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
-<body>
+<body data-user-name="<?= e($displayName) ?>" data-user-gender="<?= e($displayGender) ?>">
   <div class="background-grid" aria-hidden="true"></div>
   <div class="energy-cloud energy-cloud-one" aria-hidden="true"></div>
   <div class="energy-cloud energy-cloud-two" aria-hidden="true"></div>
 
   <header class="topbar">
-    <a class="brand" href="index.html" aria-label="Grįžti į Z-Fusion pradžią">
+    <a class="brand" href="index.php" aria-label="Grįžti į Z-Fusion pradžią">
       <span class="brand-mark">Z</span>
       <span>
         <strong>Z-Fusion</strong>
@@ -25,14 +32,14 @@
     </a>
 
     <nav class="nav" aria-label="Inventoriaus navigacija">
-      <a href="index.html">Pradžia</a>
-      <a href="character.html">Veikėjas</a>
-      <a href="game.html">Game</a>
+      <a href="index.php">Pradžia</a>
+      <a href="character.php">Veikėjas</a>
+      <a href="game.php">Game</a>
       <a href="#equipment">Įranga</a>
       <a href="#items">Daiktai</a>
     </nav>
 
-    <a class="topbar-action" href="game.html">Atgal į game</a>
+    <a class="topbar-action" href="game.php">Atgal į game</a>
   </header>
 
   <main class="inventory-shell">
@@ -47,7 +54,7 @@
       </div>
       <div class="inventory-player-chip">
         <span>Veikėjas</span>
-        <strong id="inventory-player-name">Vardas bus įkeltas</strong>
+        <strong id="inventory-player-name"><?= e($displayName) ?></strong>
       </div>
     </section>
 

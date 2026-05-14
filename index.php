@@ -1,3 +1,11 @@
+<?php
+require_once __DIR__ . '/includes/bootstrap.php';
+$pageUser = current_user();
+$pageCharacter = current_character();
+$displayName = display_name($pageUser);
+$displayGender = display_gender($pageCharacter);
+$flash = flash_get();
+?>
 <!DOCTYPE html>
 <html lang="lt">
 <head>
@@ -10,7 +18,7 @@
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
-<body>
+<body data-user-name="<?= e($displayName) ?>" data-user-gender="<?= e($displayGender) ?>">
   <div class="background-grid" aria-hidden="true"></div>
   <div class="energy-cloud energy-cloud-one" aria-hidden="true"></div>
   <div class="energy-cloud energy-cloud-two" aria-hidden="true"></div>
@@ -26,10 +34,10 @@
 
     <nav class="nav" aria-label="Pagrindinė navigacija">
       <a href="#auth">Prisijungimas</a>
-      <a href="character.html">Veikėjas</a>
-      <a href="game.html">Game</a>
-      <a href="inventory.html">Inventorius</a>
-      <a href="fight.html">Kova</a>
+      <a href="character.php">Veikėjas</a>
+      <a href="game.php">Game</a>
+      <a href="inventory.php">Inventorius</a>
+      <a href="fight.php">Kova</a>
       <a href="#stats">Statistika</a>
       <a href="#arena">Arenos</a>
       <a href="#ranking">Reitingas</a>
@@ -39,6 +47,12 @@
   </header>
 
   <main id="top">
+    <?php if ($flash): ?>
+      <div class="flash-message flash-<?= e($flash['type']) ?>">
+        <?= e($flash['message']) ?>
+      </div>
+    <?php endif; ?>
+
     <section class="hero-shell">
       <div class="hero-copy">
         <h1>Z-Fusion</h1>
@@ -51,8 +65,8 @@
 
         <div class="hero-actions">
           <a class="button button-primary" href="#auth">Sukurti paskyrą</a>
-          <a class="button button-ghost" href="character.html">Pasirinkti veikėją</a>
-          <a class="button button-ghost" href="game.html">Atidaryti game</a>
+          <a class="button button-ghost" href="character.php">Pasirinkti veikėją</a>
+          <a class="button button-ghost" href="game.php">Atidaryti game</a>
           <a class="button button-ghost" href="#ranking">Turnyro reitingas</a>
         </div>
       </div>
@@ -94,7 +108,8 @@
       </div>
 
       <div class="auth-grid">
-        <form class="auth-card" action="#" method="post">
+        <form class="auth-card" action="auth.php" method="post">
+          <input type="hidden" name="action" value="login">
           <div class="form-heading">
             <span class="form-icon">01</span>
             <div>
@@ -120,7 +135,8 @@
           <button class="button button-primary" type="submit">Prisijungti</button>
         </form>
 
-        <form class="auth-card auth-card-accent" action="#" method="post">
+        <form class="auth-card auth-card-accent" action="auth.php" method="post">
+          <input type="hidden" name="action" value="register">
           <div class="form-heading">
             <span class="form-icon">02</span>
             <div>

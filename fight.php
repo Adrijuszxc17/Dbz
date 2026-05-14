@@ -1,3 +1,14 @@
+<?php
+require_once __DIR__ . '/includes/bootstrap.php';
+$pageUser = current_user();
+$pageCharacter = current_character();
+$displayName = display_name($pageUser);
+$displayGender = display_gender($pageCharacter);
+$level = (int) ($pageCharacter['level'] ?? 1);
+$hp = (int) ($pageCharacter['hp'] ?? 100);
+$ki = (int) ($pageCharacter['ki'] ?? 40);
+$stamina = (int) ($pageCharacter['stamina'] ?? 80);
+?>
 <!DOCTYPE html>
 <html lang="lt">
 <head>
@@ -10,13 +21,13 @@
   <link rel="stylesheet" href="styles.css">
   <script src="script.js" defer></script>
 </head>
-<body>
+<body data-user-name="<?= e($displayName) ?>" data-user-gender="<?= e($displayGender) ?>">
   <div class="background-grid" aria-hidden="true"></div>
   <div class="energy-cloud energy-cloud-one" aria-hidden="true"></div>
   <div class="energy-cloud energy-cloud-two" aria-hidden="true"></div>
 
   <header class="topbar">
-    <a class="brand" href="index.html" aria-label="Grįžti į Z-Fusion pradžią">
+    <a class="brand" href="index.php" aria-label="Grįžti į Z-Fusion pradžią">
       <span class="brand-mark">Z</span>
       <span>
         <strong>Z-Fusion</strong>
@@ -25,14 +36,14 @@
     </a>
 
     <nav class="nav" aria-label="Kovos navigacija">
-      <a href="game.html">Game</a>
-      <a href="character.html">Veikėjas</a>
-      <a href="inventory.html">Inventorius</a>
+      <a href="game.php">Game</a>
+      <a href="character.php">Veikėjas</a>
+      <a href="inventory.php">Inventorius</a>
       <a href="#actions">Veiksmai</a>
       <a href="#battle-log">Logas</a>
     </nav>
 
-    <a class="topbar-action" href="game.html">Išeiti</a>
+    <a class="topbar-action" href="game.php">Išeiti</a>
   </header>
 
   <main class="fight-shell">
@@ -57,26 +68,26 @@
           </div>
           <div>
             <p class="label">Žaidėjas</p>
-            <h2 id="fight-player-name">Vardas bus įkeltas</h2>
-            <span class="rank-badge">Rookie • Level 1</span>
+            <h2 id="fight-player-name"><?= e($displayName) ?></h2>
+            <span class="rank-badge">Rookie • Level <?= $level ?></span>
           </div>
         </div>
 
         <div class="fight-bars">
           <div class="fight-bar hp-row">
             <span>HP</span>
-            <div><i id="player-hp-bar" style="--value: 100%"></i></div>
-            <strong id="player-hp-text">100/100</strong>
+            <div><i id="player-hp-bar" style="--value: <?= min($hp, 100) ?>%"></i></div>
+            <strong id="player-hp-text"><?= $hp ?>/100</strong>
           </div>
           <div class="fight-bar ki-row">
             <span>Ki</span>
-            <div><i id="player-ki-bar" style="--value: 40%"></i></div>
-            <strong id="player-ki-text">40/100</strong>
+            <div><i id="player-ki-bar" style="--value: <?= min($ki, 100) ?>%"></i></div>
+            <strong id="player-ki-text"><?= $ki ?>/100</strong>
           </div>
           <div class="fight-bar stamina-row">
             <span>Stamina</span>
-            <div><i id="player-stamina-bar" style="--value: 80%"></i></div>
-            <strong id="player-stamina-text">80/100</strong>
+            <div><i id="player-stamina-bar" style="--value: <?= min($stamina, 100) ?>%"></i></div>
+            <strong id="player-stamina-text"><?= $stamina ?>/100</strong>
           </div>
         </div>
       </article>

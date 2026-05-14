@@ -1224,6 +1224,34 @@ h3 {
   cursor: pointer;
 }
 
+.flash-message {
+  width: min(1220px, calc(100% - 2rem));
+  margin: 1rem auto 0;
+  padding: 0.9rem 1rem;
+  font-weight: 900;
+  border: 1px solid var(--line);
+  background: rgba(34, 211, 238, 0.1);
+  border-radius: 18px;
+  box-shadow: var(--shadow);
+}
+
+.flash-error {
+  color: #ffd3db;
+  background: rgba(255, 77, 109, 0.12);
+}
+
+.flash-success {
+  color: #c7ffe0;
+  background: rgba(49, 233, 129, 0.12);
+}
+
+.save-character-button {
+  width: 100%;
+  margin-top: 1rem;
+  border: 0;
+  cursor: pointer;
+}
+
 .inventory-shell {
   padding: 3.6rem 0 5rem;
 }
