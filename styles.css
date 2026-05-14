@@ -1235,6 +1235,11 @@ h3 {
   box-shadow: var(--shadow);
 }
 
+.auth-flash {
+  width: 100%;
+  margin: 0 0 1rem;
+}
+
 .flash-error {
   color: #ffd3db;
   background: rgba(255, 77, 109, 0.12);

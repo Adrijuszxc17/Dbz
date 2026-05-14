@@ -16,7 +16,7 @@ if (empty($_SESSION['user_id'])) {
 $pdo = db();
 
 if (!$pdo) {
-    flash_set('error', 'Nepavyko prisijungti prie MySQL duomenų bazės.');
+    flash_set('error', 'Nepavyko prisijungti prie MySQL duomenų bazės. Patikrink config/local.php prisijungimus ir ar importuotas database/schema.sql.');
     redirect_to('character.php');
 }
 

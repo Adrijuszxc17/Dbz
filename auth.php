@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 $pdo = db();
 
 if (!$pdo) {
-    flash_set('error', 'Nepavyko prisijungti prie MySQL duomenų bazės.');
+    flash_set('error', 'Nepavyko prisijungti prie MySQL duomenų bazės. Patikrink config/local.php prisijungimus ir ar importuotas database/schema.sql.');
     redirect_to('index.php#auth');
 }
 
@@ -43,8 +43,13 @@ if ($action === 'register') {
 
         flash_set('success', 'Registracija sėkminga. Dabar sukurk veikėją.');
         redirect_to('character.php');
-    } catch (PDOException) {
-        flash_set('error', 'Toks vardas arba el. paštas jau naudojamas.');
+    } catch (PDOException $exception) {
+        if ($exception->getCode() === '23000') {
+            flash_set('error', 'Toks vardas arba el. paštas jau naudojamas.');
+        } else {
+            flash_set('error', 'Registracijos DB klaida. Patikrink, ar importuotas database/schema.sql.');
+        }
+
         redirect_to('index.php#auth');
     }
 }
@@ -53,11 +58,16 @@ if ($action === 'login') {
     $login = trim((string) ($_POST['login-name'] ?? ''));
     $password = (string) ($_POST['login-password'] ?? '');
 
-    $statement = $pdo->prepare(
-        'SELECT id, username, email, password_hash FROM users WHERE username = ? OR email = ? LIMIT 1'
-    );
-    $statement->execute([$login, $login]);
-    $user = $statement->fetch();
+    try {
+        $statement = $pdo->prepare(
+            'SELECT id, username, email, password_hash FROM users WHERE username = ? OR email = ? LIMIT 1'
+        );
+        $statement->execute([$login, $login]);
+        $user = $statement->fetch();
+    } catch (PDOException) {
+        flash_set('error', 'Prisijungimo DB klaida. Patikrink, ar importuotas database/schema.sql.');
+        redirect_to('index.php#auth');
+    }
 
     if (!$user || !password_verify($password, (string) $user['password_hash'])) {
         flash_set('error', 'Neteisingas vartotojo vardas, el. paštas arba slaptažodis.');

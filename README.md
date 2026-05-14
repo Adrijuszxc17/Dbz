@@ -30,6 +30,8 @@ Veikėjo siluetų failai:
    - `DB_NAME`
    - `DB_USER`
    - `DB_PASS`
+   
+   Arba hostinge nukopijuok `config/local.example.php` į `config/local.php` ir įrašyk savo MySQL duomenis.
 3. Paleisk PHP serverį:
 
 ```bash

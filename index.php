@@ -109,6 +109,12 @@ $topFighters = top_fighters(5);
         </p>
       </div>
 
+      <?php if ($flash): ?>
+        <div class="flash-message auth-flash flash-<?= e($flash['type']) ?>">
+          <?= e($flash['message']) ?>
+        </div>
+      <?php endif; ?>
+
       <div class="auth-grid">
         <form class="auth-card" action="auth.php" method="post">
           <input type="hidden" name="action" value="login">
@@ -121,10 +127,10 @@ $topFighters = top_fighters(5);
           </div>
 
           <label for="login-name">Vartotojo vardas arba el. paštas</label>
-          <input id="login-name" name="login-name" type="text" placeholder="pvz. fusion_hero" autocomplete="username">
+          <input id="login-name" name="login-name" type="text" placeholder="pvz. fusion_hero" autocomplete="username" required>
 
           <label for="login-password">Slaptažodis</label>
-          <input id="login-password" name="login-password" type="password" placeholder="Įvesk slaptažodį" autocomplete="current-password">
+          <input id="login-password" name="login-password" type="password" placeholder="Įvesk slaptažodį" autocomplete="current-password" required>
 
           <div class="form-row">
             <label class="check-option">
@@ -148,13 +154,13 @@ $topFighters = top_fighters(5);
           </div>
 
           <label for="register-name">Vartotojo vardas</label>
-          <input id="register-name" name="register-name" type="text" placeholder="pvz. z_fusion_legend" autocomplete="username">
+          <input id="register-name" name="register-name" type="text" placeholder="pvz. z_fusion_legend" autocomplete="username" required>
 
           <label for="register-email">El. paštas</label>
-          <input id="register-email" name="register-email" type="email" placeholder="tavo@email.lt" autocomplete="email">
+          <input id="register-email" name="register-email" type="email" placeholder="tavo@email.lt" autocomplete="email" required>
 
           <label for="register-password">Slaptažodis</label>
-          <input id="register-password" name="register-password" type="password" placeholder="Sukurk slaptažodį" autocomplete="new-password">
+          <input id="register-password" name="register-password" type="password" placeholder="Sukurk slaptažodį" autocomplete="new-password" required>
 
           <button class="button button-primary" type="submit">Registruotis</button>
         </form>
