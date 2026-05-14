@@ -4,11 +4,17 @@ $pageUser = current_user();
 $pageCharacter = current_character();
 $displayName = display_name($pageUser);
 $displayGender = display_gender($pageCharacter);
-$level = (int) ($pageCharacter['level'] ?? 1);
-$hp = (int) ($pageCharacter['hp'] ?? 92);
-$ki = (int) ($pageCharacter['ki'] ?? 64);
-$stamina = (int) ($pageCharacter['stamina'] ?? 78);
-$xp = (int) ($pageCharacter['xp'] ?? 220);
+$level = (int) ($pageCharacter['level'] ?? 0);
+$hp = (int) ($pageCharacter['hp'] ?? 100);
+$ki = (int) ($pageCharacter['ki'] ?? 100);
+$stamina = (int) ($pageCharacter['stamina'] ?? 100);
+$xp = (int) ($pageCharacter['xp'] ?? 0);
+$requiredXp = required_xp_for_level($level);
+$xpPercent = $requiredXp > 0 ? min((int) round(($xp / $requiredXp) * 100), 100) : 0;
+$strengthPoints = (int) ($pageCharacter['strength_points'] ?? 5);
+$speedPoints = (int) ($pageCharacter['speed_points'] ?? 1);
+$kiPoints = (int) ($pageCharacter['ki_points'] ?? 6);
+$defensePoints = (int) ($pageCharacter['defense_points'] ?? 4);
 ?>
 <!DOCTYPE html>
 <html lang="lt">
@@ -82,8 +88,8 @@ $xp = (int) ($pageCharacter['xp'] ?? 220);
           </div>
           <div class="resource-row xp-row">
             <span>XP</span>
-            <div><i style="--value: <?= min((int) ($xp / 10), 100) ?>%"></i></div>
-            <strong><?= $xp ?>/1000</strong>
+            <div><i style="--value: <?= $xpPercent ?>%"></i></div>
+            <strong><?= $xp ?>/<?= $requiredXp ?></strong>
           </div>
         </div>
       </article>
@@ -119,26 +125,39 @@ $xp = (int) ($pageCharacter['xp'] ?? 220);
             <strong>0/1</strong>
           </div>
           <div>
-            <span>XP surinkta</span>
-            <strong>220/1000</strong>
+            <span>XP iki kito lygio</span>
+            <strong><?= $xp ?>/<?= $requiredXp ?></strong>
           </div>
         </div>
       </article>
 
-      <article id="events" class="game-card event-card">
+      <article id="character-stats" class="game-card character-stats-card">
         <div class="card-heading">
           <div>
-            <p class="label">Įvykių logas</p>
-            <h2>Kas vyksta?</h2>
+            <p class="label">Veikėjo statistika</p>
+            <h2>DB taškai</h2>
           </div>
-          <span class="pill">Live</span>
+          <span class="pill">Level <?= $level ?></span>
         </div>
 
-        <ol class="event-log">
-          <li>Veikėjas užregistruotas Z-Fusion sistemoje.</li>
-          <li>Treniruočių zona paruošta pirmajam bandymui.</li>
-          <li>Gokas pastebėjo naują kovotoją, bet dar laukia tavo progreso.</li>
-        </ol>
+        <div class="character-stat-list">
+          <div>
+            <span>Jėga</span>
+            <strong><?= $strengthPoints ?></strong>
+          </div>
+          <div>
+            <span>Greitis</span>
+            <strong><?= $speedPoints ?></strong>
+          </div>
+          <div>
+            <span>Ki energija</span>
+            <strong><?= $kiPoints ?></strong>
+          </div>
+          <div>
+            <span>Gynyba</span>
+            <strong><?= $defensePoints ?></strong>
+          </div>
+        </div>
       </article>
 
       <article class="game-card locked-card">
@@ -213,7 +232,7 @@ $xp = (int) ($pageCharacter['xp'] ?? 220);
     <div class="chat-copy">
       <span>Veikėjo info</span>
       <strong id="game-chat-name"><?= e($displayName) ?></strong>
-      <p>HP <?= $hp ?> • Ki <?= $ki ?> • Stamina <?= $stamina ?> • Lygis <?= $level ?></p>
+      <p>HP <?= $hp ?> • Ki <?= $ki ?> • Stamina <?= $stamina ?> • XP <?= $xp ?>/<?= $requiredXp ?></p>
     </div>
     <form class="chat-form" action="#" method="post">
       <label for="chat-message">Žinutė</label>

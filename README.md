@@ -8,13 +8,14 @@ PHP/MySQL projektas su futuristiniu drakonų kovų dizainu, registracijos/prisij
 
 - `index.php` — pagrindinis Z-Fusion puslapis su PHP/MySQL registracija ir prisijungimu.
 - `character.php` — originalaus žmogaus kovotojo kūrimas, lytis, pradiniai taškai ir saugojimas į MySQL.
-- `game.php` — pagrindinis žaidimo langas su žaidėjo statusais, dienos progresu, įvykių logu, mini žemėlapiu, inventoriumi ir chat juosta.
+- `game.php` — pagrindinis žaidimo langas su žaidėjo statusais, dienos progresu, DB veikėjo statistika, mini žemėlapiu, inventoriumi ir chat juosta.
 - `inventory.php` — inventoriaus langas su veikėjo siluetu, 5 pagrindiniais įrangos slotais, greitais resursų slotais ir tempiamais daiktais.
 - `fight.php` — bazinė kovos su NPC sistema su HP/Ki/Stamina barais, veiksmų mygtukais, NPC atsaku ir kovos logu.
 - `auth.php` — registracijos ir prisijungimo handleris.
 - `save-character.php` — veikėjo duomenų išsaugojimas į MySQL.
 - `config/database.php` — PDO prisijungimas prie MySQL.
 - `database/schema.sql` — MySQL lentelių sukūrimas.
+- `database/2026_05_14_update_character_progress_defaults.sql` — migracija esamai DB, kad nauji veikėjai startuotų nuo level 0, XP 0 ir pilnų HP/Ki/Stamina.
 - `script.js` — perkelia serverio vardą/siluetą į UI, valdo pradinių taškų limitą, drag & drop inventorių ir NPC kovos logiką.
 
 Veikėjo siluetų failai:
@@ -25,6 +26,7 @@ Veikėjo siluetų failai:
 ## Paleidimas
 
 1. Sukurk duomenų bazę importuodamas `database/schema.sql`.
+   Jei DB jau sukurta anksčiau, papildomai paleisk `database/2026_05_14_update_character_progress_defaults.sql`.
 2. Nustatyk DB aplinkos kintamuosius, jei reikia:
    - `DB_HOST`
    - `DB_NAME`

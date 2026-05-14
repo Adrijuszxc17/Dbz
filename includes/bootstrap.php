@@ -205,3 +205,10 @@ function format_stat_number(int $value): string
 
     return (string) $value;
 }
+
+function required_xp_for_level(int $level): int
+{
+    $level = max(0, $level);
+
+    return (int) round(200 * pow($level + 1, 1.5));
+}

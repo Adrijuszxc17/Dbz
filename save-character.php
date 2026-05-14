@@ -36,8 +36,8 @@ if (($strength + $speed + $ki + $defense) > 100) {
 }
 
 $statement = $pdo->prepare(
-    'INSERT INTO characters (user_id, name, gender, strength_points, speed_points, ki_points, defense_points)
-     VALUES (:user_id, :name, :gender, :strength, :speed, :ki, :defense)
+    'INSERT INTO characters (user_id, name, gender, strength_points, speed_points, ki_points, defense_points, level, xp, hp, ki, stamina)
+     VALUES (:user_id, :name, :gender, :strength, :speed, :ki_points, :defense, 0, 0, 100, 100, 100)
      ON DUPLICATE KEY UPDATE
        name = VALUES(name),
        gender = VALUES(gender),
@@ -53,7 +53,7 @@ $statement->execute([
     'gender' => $gender,
     'strength' => $strength,
     'speed' => $speed,
-    'ki' => $ki,
+    'ki_points' => $ki,
     'defense' => $defense,
 ]);
 

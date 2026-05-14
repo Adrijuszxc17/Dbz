@@ -1032,6 +1032,7 @@ h3 {
 }
 
 .quest-list,
+.character-stat-list,
 .locked-grid,
 .inventory-grid {
   display: grid;
@@ -1039,6 +1040,7 @@ h3 {
 }
 
 .quest-list div,
+.character-stat-list div,
 .locked-grid span,
 .inventory-grid div {
   padding: 0.9rem;
@@ -1054,9 +1056,24 @@ h3 {
 }
 
 .quest-list span,
+.character-stat-list span,
 .event-log,
 .inventory-grid small {
   color: var(--muted);
+}
+
+.character-stat-list {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.character-stat-list div {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.character-stat-list strong {
+  color: var(--gold);
 }
 
 .event-log {
@@ -2042,6 +2059,7 @@ tbody tr:last-child td {
   .form-grid,
   .gender-grid,
   .preview-stats,
+  .character-stat-list,
   .locked-grid,
   .inventory-grid,
   .bottom-chat,
