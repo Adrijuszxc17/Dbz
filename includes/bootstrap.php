@@ -141,7 +141,7 @@ function dashboard_stats(): array
             "SELECT
                 COUNT(*) AS active_fighters,
                 SUM(created_at >= DATE_SUB(NOW(), INTERVAL 30 DAY)) AS new_fighters,
-                COALESCE(AVG((strength_points * 1200) + (speed_points * 1000) + (ki_points * 1300) + (defense_points * 900) + (level * 500)), 0) AS avg_power
+                COALESCE(AVG(strength_points + speed_points + defense_points), 0) AS avg_power
              FROM characters"
         )->fetch();
 
@@ -186,7 +186,7 @@ function top_fighters(int $limit = 5): array
                 c.level,
                 c.hp,
                 c.updated_at,
-                ((c.strength_points * 1200) + (c.speed_points * 1000) + (c.ki_points * 1300) + (c.defense_points * 900) + (c.level * 500)) AS power_level,
+                (c.strength_points + c.speed_points + c.defense_points) AS power_level,
                 COALESCE(SUM(fl.result = 'win'), 0) AS wins,
                 COALESCE(SUM(fl.result IN ('win', 'loss')), 0) AS total_completed
              FROM characters c

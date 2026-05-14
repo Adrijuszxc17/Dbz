@@ -14,6 +14,7 @@ $strengthPoints = (int) ($pageCharacter['strength_points'] ?? 5);
 $speedPoints = (int) ($pageCharacter['speed_points'] ?? 1);
 $kiPoints = (int) ($pageCharacter['ki_points'] ?? 6);
 $defensePoints = (int) ($pageCharacter['defense_points'] ?? 4);
+$totalPower = $strengthPoints + $speedPoints + $defensePoints;
 $maxKi = max(1, $kiPoints);
 $ki = min((int) ($pageCharacter['ki'] ?? $maxKi), $maxKi);
 $rankName = rank_name_for_level($level);
@@ -142,12 +143,16 @@ $roleLabel = role_label($role);
         <div class="card-heading">
           <div>
             <p class="label">Veikėjo statistika</p>
-            <h2>DB taškai</h2>
+            <h2>Statistika</h2>
           </div>
           <span class="pill">Level <?= $level ?></span>
         </div>
 
         <div class="character-stat-list">
+          <div class="total-power-stat">
+            <span>Bendra galia</span>
+            <strong><?= $totalPower ?></strong>
+          </div>
           <div>
             <span>Jėga</span>
             <strong><?= $strengthPoints ?></strong>

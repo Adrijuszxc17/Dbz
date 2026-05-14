@@ -17,6 +17,7 @@ PHP/MySQL projektas su futuristiniu drakonų kovų dizainu, registracijos/prisij
 - `database/schema.sql` — MySQL lentelių sukūrimas.
 - `database/2026_05_14_update_character_progress_defaults.sql` — migracija esamai DB, kad nauji veikėjai startuotų nuo level 0, XP 0 ir pilnų HP/Ki/Stamina.
 - `database/2026_05_14_add_user_roles.sql` — migracija esamai DB, kad vartotojai turėtų `admin`, `vip`, `user`, `remejas` roles.
+- `database/2026_05_14_add_chat_messages.sql` — migracija bendram DB chat langui.
 - `script.js` — perkelia serverio vardą/siluetą į UI, valdo pradinių taškų limitą, drag & drop inventorių ir NPC kovos logiką.
 
 Veikėjo siluetų failai:
@@ -26,8 +27,8 @@ Veikėjo siluetų failai:
 
 ## Paleidimas
 
-1. Sukurk duomenų bazę importuodamas `database/schema.sql`.
-   Jei DB jau sukurta anksčiau, papildomai paleisk `database/2026_05_14_update_character_progress_defaults.sql` ir `database/2026_05_14_add_user_roles.sql`.
+1. Sukurk arba naudok duomenų bazę `aus37757_dbz`, importuodamas `database/schema.sql`.
+   Jei DB jau sukurta anksčiau, papildomai paleisk `database/2026_05_14_update_character_progress_defaults.sql`, `database/2026_05_14_add_user_roles.sql` ir `database/2026_05_14_add_chat_messages.sql`.
 2. Nustatyk DB aplinkos kintamuosius, jei reikia:
    - `DB_HOST`
    - `DB_NAME`

@@ -1,8 +1,8 @@
-CREATE DATABASE IF NOT EXISTS z_fusion
+CREATE DATABASE IF NOT EXISTS aus37757_dbz
   CHARACTER SET utf8mb4
   COLLATE utf8mb4_unicode_ci;
 
-USE z_fusion;
+USE aus37757_dbz;
 
 CREATE TABLE IF NOT EXISTS users (
   id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
@@ -61,4 +61,16 @@ CREATE TABLE IF NOT EXISTS fight_logs (
   CONSTRAINT fk_fight_logs_user
     FOREIGN KEY (user_id) REFERENCES users(id)
     ON DELETE CASCADE
+) ENGINE=InnoDB;
+
+CREATE TABLE IF NOT EXISTS chat_messages (
+  id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+  user_id INT UNSIGNED DEFAULT NULL,
+  username VARCHAR(40) NOT NULL,
+  message VARCHAR(500) NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  INDEX idx_chat_created_at (created_at),
+  CONSTRAINT fk_chat_messages_user
+    FOREIGN KEY (user_id) REFERENCES users(id)
+    ON DELETE SET NULL
 ) ENGINE=InnoDB;

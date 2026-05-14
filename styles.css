@@ -1137,6 +1137,11 @@ h3 {
   grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
+.character-stat-list .total-power-stat {
+  grid-column: 1 / -1;
+  border-color: rgba(255, 209, 102, 0.4);
+}
+
 .character-stat-list div {
   display: flex;
   justify-content: space-between;
@@ -1286,6 +1291,15 @@ h3 {
   margin: 0;
   color: var(--muted);
   font-size: 0.86rem;
+}
+
+.chat-feed strong {
+  color: var(--text);
+}
+
+.chat-feed span {
+  color: rgba(148, 163, 184, 0.7);
+  font-size: 0.76rem;
 }
 
 .chat-form {

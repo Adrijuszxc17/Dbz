@@ -196,7 +196,7 @@ $topFighters = top_fighters(5);
           <span class="stat-icon">03</span>
           <p>Vidutinis galios lygis</p>
           <strong><?= format_stat_number($dashboardStats['avg_power']) ?></strong>
-          <small>Pagal DB taškus ir lygį</small>
+          <small>Jėga + Greitis + Gynyba</small>
         </article>
 
         <article class="stat-card danger">

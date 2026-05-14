@@ -142,7 +142,39 @@ if (bagItems.length && dropSlots.length) {
 }
 
 if (chatForm && chatInput && chatFeed) {
-  chatForm.addEventListener("submit", (event) => {
+  const renderChatMessages = (messages) => {
+    chatFeed.innerHTML = "";
+
+    messages.forEach((message) => {
+      const entry = document.createElement("p");
+      const name = document.createElement("strong");
+      const time = document.createElement("span");
+
+      name.textContent = message.username;
+      time.textContent = message.sent_at;
+      entry.append(name, `: ${message.message} `, time);
+      chatFeed.append(entry);
+    });
+  };
+
+  const loadChatMessages = async () => {
+    try {
+      const response = await fetch("chat.php", {
+        headers: {
+          Accept: "application/json",
+        },
+      });
+      const data = await response.json();
+
+      if (data.ok) {
+        renderChatMessages(data.messages.reverse());
+      }
+    } catch (error) {
+      // Chat is non-critical; keep the game UI usable if polling fails.
+    }
+  };
+
+  chatForm.addEventListener("submit", async (event) => {
     event.preventDefault();
 
     const message = chatInput.value.trim();
@@ -151,11 +183,28 @@ if (chatForm && chatInput && chatFeed) {
       return;
     }
 
-    const entry = document.createElement("p");
-    entry.textContent = `Tu: ${message}`;
-    chatFeed.prepend(entry);
+    const body = new FormData();
+    body.set("message", message);
     chatInput.value = "";
+
+    try {
+      await fetch("chat.php", {
+        method: "POST",
+        body,
+        headers: {
+          Accept: "application/json",
+        },
+      });
+      await loadChatMessages();
+    } catch (error) {
+      const entry = document.createElement("p");
+      entry.textContent = "Nepavyko išsiųsti žinutės.";
+      chatFeed.prepend(entry);
+    }
   });
+
+  loadChatMessages();
+  window.setInterval(loadChatMessages, 3000);
 }
 
 if (fightActions.length) {

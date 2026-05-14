@@ -31,7 +31,7 @@ function db(): ?PDO
     }
 
     $host = db_config_value('DB_HOST', 'DB_HOST', '127.0.0.1');
-    $database = db_config_value('DB_NAME', 'DB_NAME', 'z_fusion');
+    $database = db_config_value('DB_NAME', 'DB_NAME', 'aus37757_dbz');
     $user = db_config_value('DB_USER', 'DB_USER', 'root');
     $password = db_config_value('DB_PASS', 'DB_PASS', '');
     $charset = db_config_value('DB_CHARSET', 'DB_CHARSET', 'utf8mb4');

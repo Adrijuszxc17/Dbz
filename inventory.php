@@ -4,6 +4,18 @@ $pageUser = current_user();
 $pageCharacter = current_character();
 $displayName = display_name($pageUser);
 $displayGender = display_gender($pageCharacter);
+$inventoryCapacity = 500;
+$inventoryUsed = 0;
+
+if (!empty($pageUser['id']) && ($pdo = db())) {
+    try {
+        $statement = $pdo->prepare('SELECT COALESCE(SUM(quantity), 0) AS used_slots FROM inventory_items WHERE user_id = ?');
+        $statement->execute([(int) $pageUser['id']]);
+        $inventoryUsed = (int) ($statement->fetch()['used_slots'] ?? 0);
+    } catch (PDOException) {
+        $inventoryUsed = 0;
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="lt">
@@ -119,7 +131,7 @@ $displayGender = display_gender($pageCharacter);
             <p class="label">Dešinė pusė</p>
             <h2>Visas inventorius</h2>
           </div>
-          <span class="pill">Tempk pele</span>
+          <span class="pill"><?= $inventoryUsed ?>/<?= $inventoryCapacity ?></span>
         </div>
 
         <div class="bag-grid" aria-label="Daiktų sąrašas">
