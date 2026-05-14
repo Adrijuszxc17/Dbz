@@ -5,6 +5,8 @@ $pageCharacter = current_character();
 $displayName = display_name($pageUser);
 $displayGender = display_gender($pageCharacter);
 $flash = flash_get();
+$dashboardStats = dashboard_stats();
+$topFighters = top_fighters(5);
 ?>
 <!DOCTYPE html>
 <html lang="lt">
@@ -173,29 +175,29 @@ $flash = flash_get();
         <article class="stat-card highlight">
           <span class="stat-icon">01</span>
           <p>Aktyvūs kovotojai</p>
-          <strong>128</strong>
-          <small>+18 naujų šį sezoną</small>
+          <strong><?= format_stat_number($dashboardStats['active_fighters']) ?></strong>
+          <small>+<?= format_stat_number($dashboardStats['new_fighters']) ?> naujų per 30 d.</small>
         </article>
 
         <article class="stat-card">
           <span class="stat-icon">02</span>
           <p>Užfiksuotos kovos</p>
-          <strong>742</strong>
-          <small>83% baigtos nokautu</small>
+          <strong><?= format_stat_number($dashboardStats['total_fights']) ?></strong>
+          <small><?= format_stat_number($dashboardStats['completed_fights']) ?> baigtų kovų</small>
         </article>
 
         <article class="stat-card">
           <span class="stat-icon">03</span>
           <p>Vidutinis galios lygis</p>
-          <strong>9.8M</strong>
-          <small>Skaičiuojama pagal formas</small>
+          <strong><?= format_stat_number($dashboardStats['avg_power']) ?></strong>
+          <small>Pagal DB taškus ir lygį</small>
         </article>
 
         <article class="stat-card danger">
           <span class="stat-icon">04</span>
           <p>Kritinės grėsmės</p>
-          <strong>7</strong>
-          <small>Reikia stebėti realiu laiku</small>
+          <strong><?= format_stat_number($dashboardStats['critical_threats']) ?></strong>
+          <small>Aktyvios NPC kovos</small>
         </article>
       </div>
     </section>
@@ -273,38 +275,29 @@ $flash = flash_get();
             </tr>
           </thead>
           <tbody>
-            <tr>
-              <td>01</td>
-              <td>Gokas</td>
-              <td>Legenda</td>
-              <td>94 800 000</td>
-              <td>91%</td>
-              <td><span class="status online">Ready</span></td>
-            </tr>
-            <tr>
-              <td>02</td>
-              <td>Vedžitas</td>
-              <td>Legenda</td>
-              <td>91 200 000</td>
-              <td>89%</td>
-              <td><span class="status online">Ready</span></td>
-            </tr>
-            <tr>
-              <td>03</td>
-              <td>Brolis</td>
-              <td>Elitas</td>
-              <td>99 400 000</td>
-              <td>94%</td>
-              <td><span class="status danger">Warning</span></td>
-            </tr>
-            <tr>
-              <td>04</td>
-              <td>Pikolas</td>
-              <td>Meistras</td>
-              <td>38 600 000</td>
-              <td>76%</td>
-              <td><span class="status idle">Training</span></td>
-            </tr>
+            <?php if ($topFighters): ?>
+              <?php foreach ($topFighters as $index => $fighter): ?>
+                <?php
+                  $completed = (int) $fighter['total_completed'];
+                  $wins = (int) $fighter['wins'];
+                  $winRate = $completed > 0 ? (int) round(($wins / $completed) * 100) : 0;
+                  $statusClass = ((int) $fighter['hp']) <= 25 ? 'danger' : (((int) $fighter['hp']) < 100 ? 'idle' : 'online');
+                  $statusText = ((int) $fighter['hp']) <= 25 ? 'Low HP' : (((int) $fighter['hp']) < 100 ? 'Resting' : 'Ready');
+                ?>
+                <tr>
+                  <td><?= str_pad((string) ($index + 1), 2, '0', STR_PAD_LEFT) ?></td>
+                  <td><?= e((string) $fighter['name']) ?></td>
+                  <td>Level <?= (int) $fighter['level'] ?></td>
+                  <td><?= number_format((int) $fighter['power_level'], 0, '.', ' ') ?></td>
+                  <td><?= $winRate ?>%</td>
+                  <td><span class="status <?= e($statusClass) ?>"><?= e($statusText) ?></span></td>
+                </tr>
+              <?php endforeach; ?>
+            <?php else: ?>
+              <tr>
+                <td colspan="6">DB dar neturi sukurtų kovotojų.</td>
+              </tr>
+            <?php endif; ?>
           </tbody>
         </table>
       </div>
